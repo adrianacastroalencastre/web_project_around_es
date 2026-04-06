@@ -34,7 +34,7 @@ const editButton = document.querySelector(".profile__edit-button");
 const editModal = document.querySelector("#edit-popup");
 const closeButton = editModal.querySelector(".popup__close");
 
-let formElement = document.querySelector(".popup__form");
+let formElement = document.querySelector(".form");
 
 // Implementar funciones reutilizables openModal() y closeModal()
 function openModal(modal) {
@@ -89,7 +89,6 @@ function handleProfileFormSubmit(evt) {
   profileJob.textContent = jobValue;
 
   closeModal(editModal);
-}
 
-formElement.addEventListener("submit", handleProfileFormSubmit);
-//editButton.addEventListener("click", handleOpenEditModal);
+  formElement.addEventListener("submit", handleProfileFormSubmit);
+}
