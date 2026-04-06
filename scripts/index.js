@@ -28,24 +28,68 @@ const initialCards = [
 initialCards.forEach(function (card) {
   console.log(card.name);
 });
-
+//proyecto etapa2.Perfil modal//--------------------------------------------
 //Seleccionar editarPerfil
 const editButton = document.querySelector(".profile__edit-button");
 const editModal = document.querySelector("#edit-popup");
-const closeButton = profileModal.querySelector(".popup-close");
+const closeButton = editModal.querySelector(".popup__close");
+
+let formElement = document.querySelector(".popup__form");
 
 // Implementar funciones reutilizables openModal() y closeModal()
 function openModal(modal) {
   modal.classList.add("popup_is-opened");
 }
+
 function closeModal(modal) {
   modal.classList.remove("popup_is-opened");
 }
-//
+
 editButton.addEventListener("click", () => {
-  openModal(profileModal);
+  openModal(editModal);
 });
 
 closeButton.addEventListener("click", () => {
-  closeModal(profileModal);
+  closeModal(editModal);
 });
+
+function fillProfileForm() {
+  const profileName = document.querySelector(
+    ".popup__input popup__input_type_name",
+  );
+  const profileJob = document.querySelector(".popup__input_type_description");
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+
+  const nameInput = document.querySelector(".popup__input_type_name");
+  const jobInput = document.querySelector("popup__input_type_description");
+
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+}
+
+//
+function handleOpenEditModal() {
+  fillProfileForm();
+  openModal(editModal);
+}
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+
+  let nameInput = document.querySelector(".popup__input_type_name");
+  let jobInput = document.querySelector(".popup__input_type_description");
+
+  let nameValue = nameInput.value;
+  let jobValue = jobInput.value;
+
+  let profileName = document.querySelector(".profile__name");
+  let profileJob = document.querySelector(".profile__job");
+  //actualizar
+  profileName.textContent = nameValue;
+  profileJob.textContent = jobValue;
+
+  closeModal(editModal);
+}
+
+formElement.addEventListener("submit", handleProfileFormSubmit);
+//editButton.addEventListener("click", handleOpenEditModal);
