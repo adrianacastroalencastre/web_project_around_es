@@ -67,7 +67,3 @@
 # Visualizar galería de imágenes
 
 # Interfaz responsive
-
-## Enlace al proyecto
-
-# []
