@@ -67,3 +67,19 @@
 # Visualizar galería de imágenes
 
 # Interfaz responsive
+
+# funcionalidades técnicas
+
+# javascript
+
+# generación dinámica de tarjetas desde array de datos
+
+# Función getCardElement
+
+#
+
+#
+
+#
+
+#
