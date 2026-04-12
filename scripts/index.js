@@ -52,8 +52,8 @@ function getCardElement(
   });
 
   cardImage.addEventListener("click", function () {
-    popImage.src = link;
-    popImage.alt = name;
+    popupImage.src = link;
+    popupImage.alt = name;
     popupCaption.textContent = name;
     openModal(imagePopup);
   });
