@@ -1,4 +1,3 @@
-console.log("script conectado a index.js");
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -53,9 +52,10 @@ function getCardElement(
   });
 
   cardImage.addEventListener("click", function () {
-    popImage.serc = link;
+    popImage.src = link;
     popImage.alt = name;
     popupCaption.textContent = name;
+    openModal(imagePopup);
   });
 
   return cardElement;
@@ -73,7 +73,7 @@ initialCards.forEach(function (card) {
 // Seleccionar editarPerfil
 const editProfileBtn = document.querySelector(".profile__edit-button");
 const editProfileModal = document.querySelector("#edit-popup");
-const closeButton = editPrfileModal.querySelector(".popup__close");
+const closeButton = editProfileModal.querySelector(".popup__close");
 const profileName = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const nameInput = document.querySelector(".popup__input_type_name");
@@ -136,7 +136,7 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = nameInput.value;
   profileDescription.textContent = descriptionInput.value;
 
-  closeModal(editModal);
+  closeModal(editProfileModal);
 }
 // Events
 editProfileBtn.addEventListener("click", handleOpenEditModal);
