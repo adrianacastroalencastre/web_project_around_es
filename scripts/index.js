@@ -1,3 +1,4 @@
+console.log("script conectado a index.js");
 const initialCards = [
   {
     name: "Valle de Yosemite",
