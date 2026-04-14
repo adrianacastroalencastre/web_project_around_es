@@ -33,17 +33,16 @@ function getCardElement(
   link = "./images/placeholder-image.png",
 ) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-
   const cardTitle = cardElement.querySelector(".card__title");
   const cardImage = cardElement.querySelector(".card__image");
   const likeButton = cardElement.querySelector(".card__like-button");
 
-  cardTitle.textContent = name;
   cardImage.src = link;
   cardImage.alt = name;
+  cardTitle.textContent = name;
 
   likeButton.addEventListener("click", function () {
-    likeButton.classList.toggle("card__like-button_active");
+    likeButton.classList.toggle("card__like-button");
   });
 
   const deleteButton = cardElement.querySelector(".card__delete-button");
@@ -63,33 +62,45 @@ function getCardElement(
 
 function renderCard(name, link, container) {
   const cardElement = getCardElement(name, link);
-  container.prepend(cardElement);
+  container.appendChild(cardElement);
 }
 
+//
+//const cardsContainer = document.querySelector(".cards__list");
 initialCards.forEach(function (card) {
   renderCard(card.name, card.link, cardsContainer);
 });
+// 2. Agregar nuevas tarjetas con la ventana emergente "Agregar una tarjeta”
+const addButton = document.querySelector(".profile__add-button");
+const addCardModal = document.querySelector(".profile__add-button");
+const AddCardCloseButton = addCardModal.querySelector(".popup__close");
+//configurar para abrir modal
+addButton.addEventListener("click", handleOpenAddCardModal);
+
+// cerrar el modal
+// cuando esta linea funciona deja de abrir el boton editar perfil.
+// AddCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
 
 // Seleccionar editarPerfil
-const editProfileBtn = document.querySelector(".profile__edit-button");
+const editProfileButton = document.querySelector(".profile__edit-button");
 const editProfileModal = document.querySelector("#edit-popup");
 const closeButton = editProfileModal.querySelector(".popup__close");
+const formElement = document.querySelector(".form");
+
+//
+editProfileButton.addEventListener("click", handleOpenEditModal);
+//
+
 const profileName = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
+const profileJob = document.querySelector(".profile__description");
 const nameInput = document.querySelector(".popup__input_type_name");
-const descriptionInput = document.querySelector(
-  ".popup__input_type_description",
-);
-const formElement = document.querySelector("#edit-profile-form");
-const imagePopup = document.querySelector("#image-popup");
-const popupImage = imagePopup.querySelector(".popup__image");
+const jobInput = document.querySelector(".popup__input_type_description");
+
+const imagePopup = document.querySelector(".popup__content");
 const popupCaption = imagePopup.querySelector(".popup__caption");
 const imagePopupCloseButton = imagePopup.querySelector(".popup__close");
 
 //
-const addCardButton = document.querySelector(".profile__add-button");
-const addCardModal = document.querySelector(".add-card-popup");
-const addCardCloseButton = addCardModal.querySelector(".popup__close");
 const addCardForm = addCardModal.querySelector("#new-card-form");
 
 const cardNameInput = addCardForm.querySelector(".popup__input_type_card-name");
@@ -106,7 +117,7 @@ function closeModal(modal) {
 // funcion llenar formulario con datos actuales
 function fillProfileForm() {
   nameInput.value = profileName.textContent;
-  descriptionInput.value = profileDescription.textContent;
+  jobInput.value = profileJob.textContent;
 }
 // funcion para manejar apertura del modal ->
 function handleOpenEditModal() {
@@ -134,23 +145,39 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
   profileName.textContent = nameInput.value;
-  profileDescription.textContent = descriptionInput.value;
+  profileJob.textContent = jobInput.value;
 
   closeModal(editProfileModal);
 }
 // Events
-editProfileBtn.addEventListener("click", handleOpenEditModal);
+editProfileButton.addEventListener("click", handleOpenEditModal);
 
 closeButton.addEventListener("click", () => {
   closeModal(editProfileModal);
 });
 
+editProfileButton.addEventListener("click", () => {
+  fillProfileForm(); // rellenar form
+  openModal(editProfileModal);
+});
+
 formElement.addEventListener("submit", handleProfileFormSubmit);
 
-addCardButton.addEventListener("click", handleOpenAddCardModal);
+//
+addButton.addEventListener("click", handleOpenAddCardModal);
 
-addCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
+AddCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
 
 addCardForm.addEventListener("submit", handleCardFormSubmit);
 
 imagePopupCloseButton.addEventListener("click", () => closeModal(imagePopup));
+//
+
+/*
+console.log("Edit button", editProfileButton);
+console.log("Add button", addCardButton);
+console.log("Edit modal", editProfileModal);
+console.log("Add modal", addCardModal);
+
+console.log(document.querySelector(".cards__list"));
+*/
