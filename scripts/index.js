@@ -72,7 +72,7 @@ initialCards.forEach(function (card) {
 });
 // 2. Agregar nuevas tarjetas con la ventana emergente "Agregar una tarjeta”
 const addButton = document.querySelector(".profile__add-button");
-const addCardModal = document.querySelector(".profile__add-button");
+const addCardModal = document.querySelector("#new-card-popup");
 const AddCardCloseButton = addCardModal.querySelector(".popup__close");
 //configurar para abrir modal
 addButton.addEventListener("click", handleOpenAddCardModal);
@@ -85,7 +85,7 @@ addButton.addEventListener("click", handleOpenAddCardModal);
 const editProfileButton = document.querySelector(".profile__edit-button");
 const editProfileModal = document.querySelector("#edit-popup");
 const closeButton = editProfileModal.querySelector(".popup__close");
-const formElement = document.querySelector(".form");
+const formElement = document.querySelector("#edit-profile-form");
 
 //
 editProfileButton.addEventListener("click", handleOpenEditModal);
@@ -96,7 +96,9 @@ const profileJob = document.querySelector(".profile__description");
 const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_description");
 
-const imagePopup = document.querySelector(".popup__content");
+// Ampliar imagen al hacer click en la tarjeta
+const imagePopup = document.querySelector("#image-popup");
+const popupImage = imagePopup.querySelector(".popup__image");
 const popupCaption = imagePopup.querySelector(".popup__caption");
 const imagePopupCloseButton = imagePopup.querySelector(".popup__close");
 
@@ -108,6 +110,7 @@ const cardLinkInput = addCardForm.querySelector(".popup__input_type_url");
 
 // Implementar funciones reutilizables openModal() y closeModal()
 function openModal(modal) {
+  console.log("abriendo modal");
   modal.classList.add("popup_is-opened");
 }
 
