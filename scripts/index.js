@@ -174,13 +174,3 @@ AddCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
 addCardForm.addEventListener("submit", handleCardFormSubmit);
 
 imagePopupCloseButton.addEventListener("click", () => closeModal(imagePopup));
-//
-
-/*
-console.log("Edit button", editProfileButton);
-console.log("Add button", addCardButton);
-console.log("Edit modal", editProfileModal);
-console.log("Add modal", addCardModal);
-
-console.log(document.querySelector(".cards__list"));
-*/

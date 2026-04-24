@@ -54,7 +54,7 @@
             </li>
           </template>
           <ul class="cards__list"></ul>
-          // las tarjetas se crearan aqui en js.
+          <!-- las tarjetas se crearan aqui en js. -->
         </section>
       </main>
       <footer class="footer page__section">
@@ -74,14 +74,25 @@
               name="name"
               placeholder="Nombre"
               type="text"
+              required
+              minlength="2"
+              maxlength="40"
             />
+            <span class="popup__input-error name-error"></span>
+            <!-- hasta aqui me quede de la primera parte. -->
             <input
               class="popup__input popup__input_type_description"
               name="description"
               placeholder="Acerca de mí"
               type="text"
+              required
+              minlength="2"
+              maxlength="200"
             />
-            <button class="button popup__button" type="submit">Guardar</button>
+            <span class="popup__input-error description-error"></span>
+            <button class="button popup__button form__submit" type="submit">
+              Guardar
+            </button>
           </form>
         </div>
       </div>
@@ -98,7 +109,7 @@
               class="popup__input popup__input_type_card-name"
               name="place-name"
               placeholder="Título"
-              required
+              requiredI
               type="text"
             />
             <input
@@ -109,6 +120,7 @@
               type="url"
             />
             <button class="button popup__button" type="submit">Crear</button>
+            <!-- hasta aqui de la primera parte del proyecto.-->
           </form>
         </div>
       </div>
