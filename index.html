@@ -68,7 +68,11 @@
             type="button"
           ></button>
           <h3 class="popup__title">Editar perfil</h3>
-          <form class="popup__form" id="edit-profile-form">
+          <form
+            class="popup__form"
+            id="edit-profile-form"
+            name="edit-profile-form"
+          >
             <input
               class="popup__input popup__input_type_name"
               name="name"
@@ -77,6 +81,7 @@
               required
               minlength="2"
               maxlength="40"
+              id="name-input"
             />
             <span class="popup__input-error name-error"></span>
             <!-- hasta aqui me quede de la primera parte. -->
@@ -88,6 +93,7 @@
               required
               minlength="2"
               maxlength="200"
+              id="description-input"
             />
             <span class="popup__input-error description-error"></span>
             <button class="button popup__button form__submit" type="submit">

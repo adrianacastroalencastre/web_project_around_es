@@ -65,7 +65,6 @@ function renderCard(name, link, container) {
   container.appendChild(cardElement);
 }
 
-//
 //const cardsContainer = document.querySelector(".cards__list");
 initialCards.forEach(function (card) {
   renderCard(card.name, card.link, cardsContainer);
@@ -174,3 +173,12 @@ AddCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
 addCardForm.addEventListener("submit", handleCardFormSubmit);
 
 imagePopupCloseButton.addEventListener("click", () => closeModal(imagePopup));
+
+// Validación de formularios
+import {
+  toggleFormbutton,
+  showInputError,
+  hideInputError,
+  resetValidation,
+  setEventListeners,
+} from "./validate.js";

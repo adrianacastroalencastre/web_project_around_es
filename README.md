@@ -76,7 +76,23 @@
 
 # Función getCardElement
 
-#
+# Proyecto 7
+
+# Página para agregar, eliminar y dar me gusta a fotos de lugares visitados "Around The US".
+
+# El sitio ahora valida los formularios para editar el perfil y agregar nuevas targetas.
+
+# Se utilizaron event listeners de tipo input en cada entrada del formulario para verificar que la entrada es correcta.
+
+# El botón de guardar se activa hasta que todas las entradas del módulo son válidas, de lo contrario se desactiva. Esto se logró utilizando pseudo clases.
+
+# Los mensajes de error se agregaron con span
+
+# Los módulos pueden cerrarse con el botón de salir, presionando fuera del contenido del módulo o presionando la tecla ESC.
+
+# La validación se realizó utilizando JS modular, con la lógica en el archivo validate.js
+
+# https://github.com/adrianacastroalencastre/web_project_around_es
 
 #
 

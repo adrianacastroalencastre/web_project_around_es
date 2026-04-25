@@ -1,0 +1,19 @@
+/* VALIDACIÓN FORMULARIOS - proyecto sprint 7*/
+/* texto del input*/
+.popup__input-error {
+  color: #ff0000;
+  font-size: 12px;
+  line-height: 1.25;
+  min-height: 12px;
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 13px;
+}
+/* línea roja */
+.popup__input-error {
+  border-bottom: 1px solid #ff0000;
+}
+/* boton inactivo */
+.popup__button:disabled {
+  background-color: #e5e5e5;
+}
