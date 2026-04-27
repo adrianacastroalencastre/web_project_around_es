@@ -1,5 +1,4 @@
-/*import { closePop, openPop, setupAllPopups } from "./popup.js";
-import { setEventListeners } from "./validate.js";*/
+import { setEventListeners, resetValidation } from "./validate.js";
 
 const initialCards = [
   {
@@ -106,15 +105,20 @@ const addCardForm = addCardModal.querySelector("#new-card-form");
 
 const cardNameInput = addCardForm.querySelector(".popup__input_type_card-name");
 const cardLinkInput = addCardForm.querySelector(".popup__input_type_url");
-
+const forms = document.querySelectorAll(".popup__form");
 // Implementar funciones reutilizables openModal() y closeModal()
 function openModal(modal) {
   console.log("abriendo modal");
+  setEventListeners(forms);
   modal.classList.add("popup_is-opened");
 }
 
 function closeModal(modal) {
   modal.classList.remove("popup_is-opened");
+  const formElement = modal.querySelector(".popup__form");
+  if (formElement) {
+    resetValidation(formElement);
+  }
 }
 // funcion llenar formulario con datos actuales
 function fillProfileForm() {
@@ -175,10 +179,12 @@ addCardForm.addEventListener("submit", handleCardFormSubmit);
 imagePopupCloseButton.addEventListener("click", () => closeModal(imagePopup));
 
 //
-buttonElement.disabled = false;
+/* buttonElement.disabled = false;
 buttonElement.classList.remove("popup__button_disabled");
-//
-inputElement.addEventListener("input", function () {
+//*/
+
+/* inputElement.addEventListener("input", function () {
   isValidElement(formElement, nameInput);
   toggleButtonState(nameInput, linkInput, buttonElement);
 });
+*/
