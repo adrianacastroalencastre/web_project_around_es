@@ -1,3 +1,6 @@
+/*import { closePop, openPop, setupAllPopups } from "./popup.js";
+import { setEventListeners } from "./validate.js";*/
+
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -28,6 +31,20 @@ const initialCards = [
 const cardTemplate = document.querySelector("#card-template").content;
 const cardsContainer = document.querySelector(".cards__list");
 
+// 2. Agregar nuevas tarjetas con la ventana emergente "Agregar una tarjeta”
+const addButton = document.querySelector(".profile__add-button");
+const addCardModal = document.querySelector("#new-card-popup");
+const AddCardCloseButton = addCardModal.querySelector(".popup__close");
+//configurar para abrir modal
+addButton.addEventListener("click", handleOpenAddCardModal);
+
+// cerrar el modal
+// Seleccionar editarPerfil
+const editProfileButton = document.querySelector(".profile__edit-button");
+const editProfileModal = document.querySelector("#edit-popup");
+const closeButton = editProfileModal.querySelector(".popup__close");
+const formElement = document.querySelector("#edit-profile-form");
+//
 function getCardElement(
   name = "Sin titulo",
   link = "./images/placeholder-image.png",
@@ -69,26 +86,9 @@ function renderCard(name, link, container) {
 initialCards.forEach(function (card) {
   renderCard(card.name, card.link, cardsContainer);
 });
-// 2. Agregar nuevas tarjetas con la ventana emergente "Agregar una tarjeta”
-const addButton = document.querySelector(".profile__add-button");
-const addCardModal = document.querySelector("#new-card-popup");
-const AddCardCloseButton = addCardModal.querySelector(".popup__close");
-//configurar para abrir modal
-addButton.addEventListener("click", handleOpenAddCardModal);
-
-// cerrar el modal
-// cuando esta linea funciona deja de abrir el boton editar perfil.
-// AddCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
-
-// Seleccionar editarPerfil
-const editProfileButton = document.querySelector(".profile__edit-button");
-const editProfileModal = document.querySelector("#edit-popup");
-const closeButton = editProfileModal.querySelector(".popup__close");
-const formElement = document.querySelector("#edit-profile-form");
 
 //
 editProfileButton.addEventListener("click", handleOpenEditModal);
-//
 
 const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
@@ -174,11 +174,11 @@ addCardForm.addEventListener("submit", handleCardFormSubmit);
 
 imagePopupCloseButton.addEventListener("click", () => closeModal(imagePopup));
 
-// Validación de formularios
-import {
-  toggleFormbutton,
-  showInputError,
-  hideInputError,
-  resetValidation,
-  setEventListeners,
-} from "./validate.js";
+//
+buttonElement.disabled = false;
+buttonElement.classList.remove("popup__button_disabled");
+//
+inputElement.addEventListener("input", function () {
+  isValidElement(formElement, nameInput);
+  toggleButtonState(nameInput, linkInput, buttonElement);
+});

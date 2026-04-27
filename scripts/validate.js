@@ -1,51 +1,56 @@
-const showInputError = (input, errorMessage) => {
-  const errorEl = input.parentElement.querySelector(
-    `.popup__error_${input.name},`,
-  );
-  input.classList.add("popup__input_type_error");
-  errorEl.textContent = errorMessage;
-  errorEl.classList.add("popup__input-error_active");
+const showInputError = (formElement, nameInput, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${nameInput.id}-error`);
+  nameInput.classList.add("popup__input_type_error");
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add("popup__input-error_visible");
 };
-const hideInputError = (input) => {
-  const errorEl = input.parentElement.querySelector(
-    `.popup__error_${input.name}`,
-  );
-  input.classList.remove("popup__input_error");
-  errorEl.textContent = "Correcto";
-  errorEl.classList.remove("popup__error_active");
-};
-//
-function toggleFormbutton(form, button) {
-  if (form.checkValidity()) {
-    button.disabled = false;
-  } else {
-    button.disabled = true;
-  }
-}
 
-function setEventListeners(modal) {
-  modal.addEventListener("input", (evt) => {
-    if (evt.target.id === modal.id) {
-      modal.classList.remove("popup_is-opened");
-    }
-  });
-}
-//export
-export { toggleFormbutton, showInputError, hideInputError, setEventListeners };
-/* 
-// funcion ocultar error
-function hideInputError(formElement, inputElement) {
-  const errorEl = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove("popup__input_type_error");
-  errorEl.classList.remove("popup__input-error_active");
-  errorEl.textContent = "";
-}
-//verificar validez de input
-function checkInputValidity(formElement, inputElement) {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+const hideInputError = (formElement, nameInput) => {
+  const errorElement = formElement.querySelector(`.${nameInput.id}-error`);
+  nameInput.classList.remove("popup__input_type_error");
+  errorElement.classList.remove("popup__input-error_visible");
+  errorElement.textContent = "";
+};
+
+const checkInputValidity = (formElement, nameInput) => {
+  if (!nameInput.validity.valid) {
+    showInputError(formElement, nameInput, nameInput.validationMessage);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, nameInput);
   }
-}
+};
+
+const setEventListeners = (formElement) => {
+  const nameInput = formElement.querySelector(".popup__input_type_card-name");
+  const linkInput = formElement.querySelector(".popup__input_type_url");
+};
+/*
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}; 
 */
+
+const toggleButtonState = (nameInput, linkInput, buttonElement) => {
+  if (hasInvalidInput(nameInput, linkInput)) {
+    buttonElement.classList.add("popup__button_disabled");
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove("popup__button_disabled");
+    buttonElement.disabled = false;
+  }
+};
+
+const resetValidation = (formElement) => {
+  const nameInput = formElement.querySelector(".popup__input_type_card-name");
+  const linkInput = formElement.querySelector(".popup__input_type_url");
+  const buttonElement = formElement.querySelector(".popup__button");
+
+  inputList.forEach((nameInput) => {
+    hideInputError(formElement, nameInput);
+  });
+  toggleButtonState(nameInput, linkInput, buttonElement);
+};
+
+export { setEventListeners, resetValidation } from "./validate.js";
