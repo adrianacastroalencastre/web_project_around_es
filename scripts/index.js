@@ -111,6 +111,8 @@ function openModal(modal) {
   console.log("abriendo modal");
   setEventListeners(forms);
   modal.classList.add("popup_is-opened");
+  document.addEventListener("keydown", handleEscClose);
+  modal.addEventListener("click", handleOverlayClick);
 }
 
 function closeModal(modal) {
@@ -119,6 +121,9 @@ function closeModal(modal) {
   if (formElement) {
     resetValidation(formElement);
   }
+  //remover listener para click en superposicion
+  /*document.removeEventListener("keydown", handleEscClose);
+  modal.removeEventListener("click", handleOverlayClick);*/
 }
 // funcion llenar formulario con datos actuales
 function fillProfileForm() {
@@ -178,13 +183,15 @@ addCardForm.addEventListener("submit", handleCardFormSubmit);
 
 imagePopupCloseButton.addEventListener("click", () => closeModal(imagePopup));
 
-//
-/* buttonElement.disabled = false;
-buttonElement.classList.remove("popup__button_disabled");
-//*/
+// funcion para manejar tecla escp
+function handleEscClose(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".popup_is-opened");
+    if (openedModal) {
+      closeModal(openedModal);
+    }
+  }
+}
+/* //
 
-/* inputElement.addEventListener("input", function () {
-  isValidElement(formElement, nameInput);
-  toggleButtonState(nameInput, linkInput, buttonElement);
-});
 */
