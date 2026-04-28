@@ -122,8 +122,8 @@ function closeModal(modal) {
     resetValidation(formElement);
   }
   //remover listener para click en superposicion
-  /*document.removeEventListener("keydown", handleEscClose);
-  modal.removeEventListener("click", handleOverlayClick);*/
+  document.removeEventListener("keydown", handleEscClose);
+  modal.removeEventListener("click", handleOverlayClick);
 }
 // funcion llenar formulario con datos actuales
 function fillProfileForm() {
@@ -192,6 +192,9 @@ function handleEscClose(evt) {
     }
   }
 }
-/* //
 
-*/
+function handleOverlayClick(evt) {
+  if (evt.target.classList.contains("popup_is-opened")) {
+    closeModal(evt.target);
+  }
+}
