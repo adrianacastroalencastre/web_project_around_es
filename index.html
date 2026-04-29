@@ -76,7 +76,7 @@
           ></button>
           <h3 class="popup__title">Editar perfil</h3>
           <form
-            class="popup__form form__submit"
+            class="popup__form"
             id="edit-profile-form"
             name="edit-profile-form"
           >
@@ -103,7 +103,10 @@
               id="description-input"
             />
             <span class="popup__input-error description-error"></span>
-            <button class="form__submit popup__button" type="submit">
+            <button
+              class="button popup__button popup__button_disabled"
+              type="submit"
+            >
               Guardar
             </button>
           </form>
@@ -137,9 +140,7 @@
             />
             <span class="popup__input-error link-error"></span>
 
-            <button class="form__submit popup__button" type="submit">
-              Crear
-            </button>
+            <button class="button popup__button" type="submit">Crear</button>
           </form>
         </div>
       </div>
