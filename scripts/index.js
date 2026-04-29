@@ -26,21 +26,22 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
   },
 ];
-//
+// selectors
 const cardTemplate = document.querySelector("#card-template").content;
 const cardsContainer = document.querySelector(".cards__list");
-
-// 2. Agregar nuevas tarjetas con la ventana emergente "Agregar una tarjeta”
-const addButton = document.querySelector(".profile__add-button");
+// profile
+const editProfileButton = document.querySelector(".profile__edit-button");
 const addCardModal = document.querySelector("#new-card-popup");
-const AddCardCloseButton = addCardModal.querySelector(".popup__close");
+const imagePopup = document.querySelector("#image-popup");
+// forms
+const addButton = document.querySelector(".profile__add-button");
+const editProfileModal = document.querySelector("#edit-popup");
+//
+const addCardCloseButton = addCardModal.querySelector(".popup__close");
+const editProfileCloseButton = editProfileModal.querySelector(".popup__close");
 //configurar para abrir modal
 addButton.addEventListener("click", handleOpenAddCardModal);
-
 // cerrar el modal
-// Seleccionar editarPerfil
-const editProfileButton = document.querySelector(".profile__edit-button");
-const editProfileModal = document.querySelector("#edit-popup");
 const closeButton = editProfileModal.querySelector(".popup__close");
 const formElement = document.querySelector("#edit-profile-form");
 //
@@ -95,7 +96,7 @@ const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_description");
 
 // Ampliar imagen al hacer click en la tarjeta
-const imagePopup = document.querySelector("#image-popup");
+
 const popupImage = imagePopup.querySelector(".popup__image");
 const popupCaption = imagePopup.querySelector(".popup__caption");
 const imagePopupCloseButton = imagePopup.querySelector(".popup__close");
@@ -177,7 +178,7 @@ formElement.addEventListener("submit", handleProfileFormSubmit);
 //
 addButton.addEventListener("click", handleOpenAddCardModal);
 
-AddCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
+addCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
 
 addCardForm.addEventListener("submit", handleCardFormSubmit);
 
