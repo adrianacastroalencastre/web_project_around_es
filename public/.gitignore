@@ -1,0 +1,18 @@
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos compilados de TypeScript
+public/*.js
+public/*.js.map
+
+# Dependencias
+node_modules/
+
+# Archivos de configuración del editor
+.vscode/
+.idea/
+
+# Archivos temporales
+*.tmp
+*.temp
