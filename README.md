@@ -38,7 +38,27 @@
 
 # NO debe haber inner.html
 
-## Descripción
+# Galería de terjetas
+
+# Agregar tarjetas: forms para crear nuevas tarjetas con titulo e imagen
+
+# boton de "me gusta" : funcionalidad para marcar tarjetas favoritas
+
+# Eliminar tarjetas
+
+# Vista ampliada
+
+# Editar perfil
+
+# Editar foto de perfil:
+
+# Interfaz responsiva
+
+# Validación de formularios
+
+# Cierre de modales, cerrar ventanas emergentes con la tecla esc o haciendo click en el overlay
+
+## DESCRIPCIÓN
 
 # Aplicación web que simula una red social para compartir fotografías de lugares visitados.
 
@@ -93,9 +113,3 @@
 # La validación se realizó utilizando JS modular, con la lógica en el archivo validate.js
 
 # https://github.com/adrianacastroalencastre/web_project_around_es
-
-#
-
-#
-
-#

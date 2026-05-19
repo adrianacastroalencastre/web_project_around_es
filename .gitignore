@@ -3,16 +3,16 @@
 Thumbs.db
 
 # Archivos compilados de TypeScript
-public/*.js
-public/*.js.map
+# public/*.js
+# public/*.js.map
 
 # Dependencias
 node_modules/
 
 # Archivos de configuración del editor
-.vscode/
-.idea/
+# .vscode/
+#.idea/
 
 # Archivos temporales
-*.tmp
-*.temp
+# *.tmp
+# *.temp
