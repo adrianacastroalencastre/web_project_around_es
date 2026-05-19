@@ -6,7 +6,7 @@ interface FormConfig {
   errorClass: string;
 }
 
-const defaultFormConfig: FormConfig = {
+export const defaultFormConfig: FormConfig = {
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button_disabled",
@@ -14,7 +14,7 @@ const defaultFormConfig: FormConfig = {
   errorClass: "popup__error_visible",
 };
 
-const initialCards = [
+export const initialCards = [
   {
     name: "Valle de Yosemite",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",

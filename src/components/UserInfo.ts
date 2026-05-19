@@ -8,7 +8,7 @@ interface UserInfoSelectors {
   descriptionSelector: string;
 }
 
-class UserInfo {
+export class UserInfo {
   private _nameElement: HTMLElement;
   private _descriptionElement: HTMLElement;
 

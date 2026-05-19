@@ -6,7 +6,7 @@ interface FormConfig {
   errorClass: string; 
 
 }
-class FormValidator {
+export class FormValidator {
   private _config: FormConfig;
   private _formElement: HTMLFormElement;
   private _inputList: HTMLInputElement[];
@@ -28,7 +28,7 @@ class FormValidator {
     errorMessage: string
   ): void {
     const errorElement = this._formElement.querySelector(
-      `#${inputElement.id}-error`
+      `.${inputElement.name}-error`
     ) as HTMLElement;
 
     inputElement.classList.add(this._config.inputErrorClass);
@@ -38,7 +38,7 @@ class FormValidator {
 
   private _hideInputError(inputElement: HTMLInputElement): void {
     const errorElement = this._formElement.querySelector(
-      `#${inputElement.id}-error`
+      `.${inputElement.name}-error`
     ) as HTMLElement;
 
     inputElement.classList.remove(this._config.inputErrorClass);

@@ -1,4 +1,5 @@
-class PopupWithImage extends Popup {
+import { Popup } from "./Popup.js";
+export class PopupWithImage extends Popup {
   private _imageElement: HTMLImageElement;
   private _captionElement: HTMLElement;
 

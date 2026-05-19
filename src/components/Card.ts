@@ -1,9 +1,9 @@
-interface CardData {
+export interface CardData {
     name: string;
     link: string;
 }
 
-class Card {
+export class Card {
     private _name: string;
     private _link: string;
     private _templateSelector: string;

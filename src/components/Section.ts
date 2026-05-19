@@ -1,9 +1,9 @@
 interface SectionConfig <T> { 
     items: T [];
-    renderer: (item: T) => HTMLElement;
+    renderer: (item: T) => void;
 }
 
-class Section<T> {
+export class Section<T> {
   private _items: T[];
   private _renderer: (item: T) => void;
   private _container: HTMLElement;

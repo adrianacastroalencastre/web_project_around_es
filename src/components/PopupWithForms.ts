@@ -1,6 +1,6 @@
 type FormSubmitHandler = (inputValues: Record<string, string>) => void;
-
-class PopupWithForm extends Popup {
+import { Popup } from "./Popup.js";
+export class PopupWithForm extends Popup {
   private _formElement: HTMLFormElement;
   private _inputList: HTMLInputElement[];
   private _handleFormSubmit: FormSubmitHandler;
