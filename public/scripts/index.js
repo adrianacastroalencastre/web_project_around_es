@@ -1,4 +1,4 @@
-/*import { setEventListeners, resetValidation } from "./validate.js";
+import { setEventListeners, resetValidation } from "./validate.js";
 const initialCards = [
     {
         name: "Valle de Yosemite",
@@ -165,4 +165,3 @@ function handleOverlayClick(evt) {
         closeModal(evt.target);
     }
 }
-*/

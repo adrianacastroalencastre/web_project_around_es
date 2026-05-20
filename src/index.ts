@@ -1,5 +1,5 @@
 import { FormValidator } from "./components/FormValidator.js";
-import { defaultFormConfig, initialCards } from "./scripts/utils/constants.js";
+import { defaultFormConfig, initialCards } from "./utils/constants.js";
 import { Card, CardData } from "./components/Card.js";
 import { UserInfo } from "./components/UserInfo.js";
 import { PopupWithForm } from "./components/PopupWithForms.js";
