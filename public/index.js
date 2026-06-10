@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { FormValidator } from "./components/FormValidator.js";
 import { defaultFormConfig, initialCards } from "./utils/constants.js";
 import { Card } from "./components/Card.js";
@@ -5,6 +14,8 @@ import { UserInfo } from "./components/UserInfo.js";
 import { PopupWithForm } from "./components/PopupWithForms.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { Section } from "./components/Section.js";
+import { Api } from "./components/Api.js";
+const api = new Api('https://around-api.es.tripleten-services.com');
 const editProfileButton = document.querySelector(".profile__edit-button");
 const editProfileModal = document.querySelector("#edit-popup");
 const editProfileForm = editProfileModal.querySelector(".popup__form");
@@ -26,6 +37,8 @@ const userInfo = new UserInfo({
     descriptionSelector: ".profile__description",
 });
 const imagePopup = new PopupWithImage("#image-popup");
+//agregación del video
+// ACTUALIZAR USUARIO CON API Y LUEGO AGREGARLO  EN LA SECCIÓN
 const editProfilePopup = new PopupWithForm("#edit-popup", (inputValues) => {
     userInfo.setUserInfo({
         name: inputValues.name,
@@ -33,14 +46,20 @@ const editProfilePopup = new PopupWithForm("#edit-popup", (inputValues) => {
     });
     editProfilePopup.close();
 });
+editProfilePopup.setEventListeners();
+//  CREAR EL POST EN LA API 
 const addCardPopup = new PopupWithForm("#new-card-popup", (inputValues) => {
     const cardData = {
         name: inputValues["place-name"],
         link: inputValues.link,
     };
-    renderCard(cardData);
-    addCardPopup.close();
+    addCardPopup.setEventListeners();
 });
+// linea agregada del video
+/*const postData = await api.createPost(cardData);
+const newPostElement = createPost(postData);
+postSection.addItem(newPostElement);
+addCardPopup.close(); */
 function fillProfileForm() {
     const profileData = userInfo.getUserInfo();
     nameInput.value = profileData.name;
@@ -75,3 +94,30 @@ editProfilePopup.setEventListeners();
 addCardPopup.setEventListeners();
 imagePopup.setEventListeners();
 cardSection.renderItems();
+// INICIALIZACIÓN cuando se carga la página, obtenemos los datos del usuario y las tarjetas desde la API y los renderizamos en la interfaz
+document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const [cards, userInfo] = yield Promise.all([
+            api.getCards(),
+            api.getUserInfo()
+        ]);
+        cardSection.renderItems(cards);
+        userInfo.setUserInfo(userInfo);
+    }
+    catch (error) {
+        console.error("Error loading cards:", error);
+    }
+}));
+function initApp() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const [cards, userInfoData] = yield Promise.all([
+                api.getCards(),
+                api.getUserInfo(),
+            ]);
+        }
+        finally {
+        }
+    });
+}
+initApp();
