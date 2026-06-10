@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { FormValidator } from "./components/FormValidator.js";
 import { defaultFormConfig, initialCards } from "./utils/constants.js";
 import { Card } from "./components/Card.js";
@@ -14,8 +5,10 @@ import { UserInfo } from "./components/UserInfo.js";
 import { PopupWithForm } from "./components/PopupWithForms.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { Section } from "./components/Section.js";
-import { Api } from "./components/Api.js";
+/*import { Api } from "./components/Api.js";
+
 const api = new Api('https://around-api.es.tripleten-services.com');
+*/
 const editProfileButton = document.querySelector(".profile__edit-button");
 const editProfileModal = document.querySelector("#edit-popup");
 const editProfileForm = editProfileModal.querySelector(".popup__form");
@@ -94,30 +87,31 @@ editProfilePopup.setEventListeners();
 addCardPopup.setEventListeners();
 imagePopup.setEventListeners();
 cardSection.renderItems();
+/*
 // INICIALIZACIÓN cuando se carga la página, obtenemos los datos del usuario y las tarjetas desde la API y los renderizamos en la interfaz
-document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const [cards, userInfo] = yield Promise.all([
-            api.getCards(),
-            api.getUserInfo()
-        ]);
-        cardSection.renderItems(cards);
-        userInfo.setUserInfo(userInfo);
-    }
-    catch (error) {
-        console.error("Error loading cards:", error);
-    }
-}));
-function initApp() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const [cards, userInfoData] = yield Promise.all([
-                api.getCards(),
-                api.getUserInfo(),
-            ]);
-        }
-        finally {
-        }
-    });
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+  const [cards, userInfo] = await Promise.all( [
+    api.getCards(),
+    api.getUserInfo()
+  ]);
+
+/*  cardSection.renderItems(cards);
+  userInfo.setUserInfo(userInfo);
+  } catch (error) {
+    console.error("Error loading cards:", error);
+  }
+});
+
+
+async function initApp() {
+  try {
+    const [cards, userInfoData] = await Promise.all([
+      api.getCards(),
+      api.getUserInfo(),
+    ]);
+  }
 }
-initApp();
+    initApp();
+
+    */

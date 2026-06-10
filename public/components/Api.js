@@ -1,36 +1,31 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+"use strict";
+/*import { CardData, UserData } from './Card';
 export class Api {
-    constructor(baseUrl) {
+    private baseUrl: string;
+
+    constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
     }
-    //GET 
-    handleResponse(response) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!response.ok) {
-                throw new Error(`API error: ${response.statusText}`);
-            }
-            return yield response.json();
-        });
+
+    //GET
+    private async handleResponse<T>(response: Response): Promise<T> {
+        if (!response.ok) {
+            throw new Error(`API error: ${response.statusText}`);
+        }
+        return await response.json();
     }
-    getUserInfo() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`${this.baseUrl}/users/1`);
-            return yield this.handleResponse(response);
-        });
+
+    async getUserInfo(): Promise<{ name: string; about: string; avatar: string }> {
+        const response = await fetch(`${this.baseUrl}/users/1`);
+        return await this.handleResponse<UserData>(response);
     }
-    getCards() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`${this.baseUrl}/cards`);
-            return yield this.handleResponse(response);
-        });
+
+    async getCards(): Promise<CardData[]> {
+        const response = await fetch(`${this.baseUrl}/cards`);
+        return await this.handleResponse<CardData[]>(response);
     }
 }
+
 // GET https://around-api.es.tripleten-services.com/v1/cards/
+ 
+*/ 

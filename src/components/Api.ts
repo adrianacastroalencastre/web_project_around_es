@@ -1,4 +1,4 @@
-import { CardData, UserData } from './Card';
+/*import { CardData, UserData } from './Card';
 export class Api {
     private baseUrl: string;
 
@@ -27,3 +27,4 @@ export class Api {
 
 // GET https://around-api.es.tripleten-services.com/v1/cards/
  
+*/

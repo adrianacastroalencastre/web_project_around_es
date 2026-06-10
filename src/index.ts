@@ -5,10 +5,10 @@ import { UserInfo } from "./components/UserInfo.js";
 import { PopupWithForm } from "./components/PopupWithForms.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { Section } from "./components/Section.js";
-import { Api } from "./components/Api.js";
+/*import { Api } from "./components/Api.js";
 
 const api = new Api('https://around-api.es.tripleten-services.com');
-
+*/
 const editProfileButton = document.querySelector(
   ".profile__edit-button"
 ) as HTMLButtonElement;
@@ -128,6 +128,7 @@ imagePopup.setEventListeners();
 
 cardSection.renderItems();
 
+/*
 // INICIALIZACIÓN cuando se carga la página, obtenemos los datos del usuario y las tarjetas desde la API y los renderizamos en la interfaz
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -136,12 +137,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     api.getUserInfo()
   ]);
 
-  cardSection.renderItems(cards);
+/*  cardSection.renderItems(cards);
   userInfo.setUserInfo(userInfo);
   } catch (error) {
     console.error("Error loading cards:", error);
   }
 });
+
 
 async function initApp() {
   try {
@@ -152,3 +154,5 @@ async function initApp() {
   }
 }
     initApp(); 
+
+    */
