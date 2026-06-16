@@ -5,8 +5,8 @@ import { UserInfo } from "./components/UserInfo.js";
 import { PopupWithForm } from "./components/PopupWithForms.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { Section } from "./components/Section.js";
-/*import { Api } from "./components/Api.js";
-
+import { Api } from "./components/Api.js";
+/*
 const api = new Api('https://around-api.es.tripleten-services.com');
 */
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -48,11 +48,6 @@ const addCardPopup = new PopupWithForm("#new-card-popup", (inputValues) => {
     };
     addCardPopup.setEventListeners();
 });
-// linea agregada del video
-/*const postData = await api.createPost(cardData);
-const newPostElement = createPost(postData);
-postSection.addItem(newPostElement);
-addCardPopup.close(); */
 function fillProfileForm() {
     const profileData = userInfo.getUserInfo();
     nameInput.value = profileData.name;
@@ -115,3 +110,10 @@ async function initApp() {
     initApp();
 
     */
+const api = new Api({
+    baseUrl: 'https://around-api.es.tripleten-services.com',
+    headers: {
+        'authorization': 'ac46fbd6-44c2-43cd-96de-34088853b47e',
+        'Content-Type': 'application/json',
+    }
+});

@@ -1,4 +1,9 @@
-"use strict";
+export class Api {
+    constructor(options) {
+        this.baseUrl = options.baseUrl;
+        this._headers = options.headers;
+    }
+}
 /*import { CardData, UserData } from './Card';
 export class Api {
     private baseUrl: string;

@@ -1,30 +1,16 @@
-/*import { CardData, UserData } from './Card';
+import { CardData } from "./Card";
+
+interface ApiOptions {
+    baseUrl: string;
+    headers: Record<string, string>;
+}
 export class Api {
     private baseUrl: string;
+    private _headers: Record<string, string>;
 
-    constructor(baseUrl: string) {
-        this.baseUrl = baseUrl;
-    }
-
-    //GET 
-    private async handleResponse<T>(response: Response): Promise<T> {
-        if (!response.ok) {
-            throw new Error(`API error: ${response.statusText}`);
-        }
-        return await response.json();
-    }
-
-    async getUserInfo(): Promise<{ name: string; about: string; avatar: string }> {
-        const response = await fetch(`${this.baseUrl}/users/1`);
-        return await this.handleResponse<UserData>(response);
-    }
-
-    async getCards(): Promise<CardData[]> {
-        const response = await fetch(`${this.baseUrl}/cards`);
-        return await this.handleResponse<CardData[]>(response);
+    constructor(options: ApiOptions) {
+        this.baseUrl = options.baseUrl; 
+        this._headers = options.headers;
     }
 }
 
-// GET https://around-api.es.tripleten-services.com/v1/cards/
- 
-*/
