@@ -4,33 +4,84 @@ export class Api {
         this._headers = options.headers;
     }
 }
-/*import { CardData, UserData } from './Card';
-export class Api {
-    private baseUrl: string;
-
-    constructor(baseUrl: string) {
-        this.baseUrl = baseUrl;
+_checkResponse(res);
+{
+    if (res.ok) {
+        return res.json();
     }
-
-    //GET
-    private async handleResponse<T>(response: Response): Promise<T> {
-        if (!response.ok) {
-            throw new Error(`API error: ${response.statusText}`);
-        }
-        return await response.json();
-    }
-
-    async getUserInfo(): Promise<{ name: string; about: string; avatar: string }> {
-        const response = await fetch(`${this.baseUrl}/users/1`);
-        return await this.handleResponse<UserData>(response);
-    }
-
-    async getCards(): Promise<CardData[]> {
-        const response = await fetch(`${this.baseUrl}/cards`);
-        return await this.handleResponse<CardData[]>(response);
-    }
+    return Promise.reject(`Error: ${res.status}`);
 }
-
-// GET https://around-api.es.tripleten-services.com/v1/cards/
- 
-*/ 
+getUserInfo();
+{
+    return fetch(`${this.baseUrl}/users/me`, {
+        headers: this._headers,
+    })
+        .then(this._checkResponse);
+}
+getInitialCards();
+{
+    return fetch(`${this._baseUrl}/users/me`, {
+        headers: this._headers,
+    })
+        .then(this._checkResponse);
+}
+getInitialCards();
+{
+    return fetch(`${this.baseUrl}/cards`, {
+        headers: this._headers,
+    })
+        .then(this._checkResponse);
+}
+updateUserInfo(name, about);
+{
+    return fetch(`${this.baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+            name: name,
+            about: about,
+        }),
+    }).then(this._checkResponse);
+}
+addCard(name, link);
+{
+    return fetch(`${this.baseUrl}/cards`, {
+        method: 'POST',
+        headers: this._headers,
+        body: JSON.stringify({
+            name: name,
+            link: link,
+        }),
+    }).then(this._checkResponse);
+}
+deleteCard(cardId);
+{
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: this._headers,
+    }).then(this._checkResponse);
+}
+likeCard(cardId);
+{
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+        method: 'PUT',
+        headers: this._headers,
+    }).then(this._checkResponse);
+}
+unlikeCard(cardId);
+{
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+        method: 'DELETE',
+        headers: this._headers,
+    }).then(this._checkResponse);
+}
+updateAvatar(avatarUrl);
+{
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+            avatar: avatarUrl,
+        }),
+    }).then(this._checkResponse);
+}

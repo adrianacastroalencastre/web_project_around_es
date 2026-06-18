@@ -1,115 +1,29 @@
-# Tripleten web_project_around_es
+# web_project_around_es
 
-# Instalación
+# TRIPLETEN
 
-# Clonar repositorio
+# Instalación [ Clonar repositorio ]
 
-# Abrir index.html en navegador
+# Descripción del Proyecto y Funcionalidad
 
-# FUNCIONALIDADES
+# Este proyecto consiste en una aplicación web interactiva optimizada que se conecta con un servidor externo.
 
-# Requisitos generales
+# Principales funciones[ Gestión de Tarjetas: Cuenta con un formulario para agregar tarjetas que se activa al enviarlo o al presionar Enter si un campo de texto está activo. Las tarjetas aparecen en la página únicamente después de recibir el ID del usuario.
 
-# Index.html e index.css
+# Interacción: El botón "Me gusta" es completamente funcional.
 
-# Un directorio blocks
+# Eliminación Segura: Se ha implementado la función de eliminar tarjetas, la cual despliega una ventana emergente de confirmación antes de proceder con el borrado.
 
-# Una carpeta images
+# Perfil de Usuario: Al pasar el cursor sobre la foto de perfil se muestra un icono de edición que abre una ventana emergente al hacer clic. Al guardar los cambios del perfil, el botón muestra el texto "Guardando..." hasta que los datos terminan de cargarse.
 
-# Un archivo de script index.js
+# Ventanas Modales Inteligentes: Los cuadros emergentes se adaptan a cualquier resolución de pantalla y pueden cerrarse al presionar la tecla Esc o al hacer clic fuera de sus bordes. Validación de Formularios: Todos los campos son validados por una función universal, manteniendo inactivo el botón de envío si algún campo no cumple con los requisitos. ]
 
-# Archivo Read.md
+# Tecnologías y Técnicas Utilizadas
 
-# Requisitos de estilo de código
+# [ HTML5 y CSS3: Empleados para la programación de todas las secciones del diseño y la creación estática de las ventanas modales.
 
-# camelCase (para funciones y variables)
+# TypeScript (TS): Utilizado para el desarrollo de la lógica de la aplicación, almacenando todos los archivos con extensión .ts dentro de la carpeta src.
 
-# Sustantivos como nombres de variables
-
-# Los nombres de las variables describen claramente lo que se almacena en ellas. Si el proyecto tiene varias variables con datos similares, entonces esas variables tienen nombres únicos pero descriptivos.
-
-# > Se utilizan nombres descriptivos para las funciones, que reflejan lo que hacen.
-
-# Los nombres de las funciones comienzan con un verbo.
-
-# Los nombres no deben incluir abreviaturas inapropiadas o poco claras.
-
-# SE Implementó la funcionalidad según el BRIEF
-
-# NO debe haber inner.html
-
-# Galería de terjetas
-
-# Agregar tarjetas: forms para crear nuevas tarjetas con titulo e imagen
-
-# boton de "me gusta" : funcionalidad para marcar tarjetas favoritas
-
-# Eliminar tarjetas
-
-# Vista ampliada
-
-# Editar perfil
-
-# Editar foto de perfil:
-
-# Interfaz responsiva
-
-# Validación de formularios
-
-# Cierre de modales, cerrar ventanas emergentes con la tecla esc o haciendo click en el overlay
-
-## DESCRIPCIÓN
-
-# Aplicación web que simula una red social para compartir fotografías de lugares visitados.
-
-## Around the U.S es una aplicación web interactiva que permite a los usuarios
-
-## Tecnologías utilizadas
-
-# Metodología : BEM
-
-# HTML5
-
-# CSS3
-
-# JavaScript
-
-# FUNCIONALIDADES
-
-# Editar perfil del usuario
-
-# Agregar nuevas tarjetas
-
-# Interacción con modales
-
-# Editar perfil de usuario
-
-# Visualizar galería de imágenes
-
-# Interfaz responsive
-
-# funcionalidades técnicas
-
-# javascript
-
-# generación dinámica de tarjetas desde array de datos
-
-# Función getCardElement
-
-# Proyecto 7
-
-# Página para agregar, eliminar y dar me gusta a fotos de lugares visitados "Around The US".
-
-# El sitio ahora valida los formularios para editar el perfil y agregar nuevas targetas.
-
-# Se utilizaron event listeners de tipo input en cada entrada del formulario para verificar que la entrada es correcta.
-
-# El botón de guardar se activa hasta que todas las entradas del módulo son válidas, de lo contrario se desactiva. Esto se logró utilizando pseudo clases.
-
-# Los mensajes de error se agregaron con span
-
-# Los módulos pueden cerrarse con el botón de salir, presionando fuera del contenido del módulo o presionando la tecla ESC.
-
-# La validación se realizó utilizando JS modular, con la lógica en el archivo validate.js
+# Programación Orientada a Objetos (POO): Basada en clases de ES6 bajo un enfoque de acoplamiento flexible o débil. La arquitectura modular está compuesta por las siguientes clases independientes localizadas en el directorio components: Api: Gestiona exclusivamente las solicitudes al servidor. Section: Se encarga del renderizado de elementos en los contenedores. Card: Administra la creación y comportamiento de cada tarjeta. FormValidator: Maneja la validación individual de los formularios. UserInfo: Controla la información del perfil de usuario. Popup, PopupWithForm, PopupWithImage y PopupWithConfirmation: Componentes para la gestión estructurada de ventanas emergentes.]
 
 # https://github.com/adrianacastroalencastre/web_project_around_es
