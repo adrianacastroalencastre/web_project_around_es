@@ -1,87 +1,99 @@
+//
 export class Api {
     constructor(options) {
         this.baseUrl = options.baseUrl;
-        this._headers = options.headers;
+        this.headers = options.headers;
+    }
+    checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+        }
+        throw new Error(`Error: ${res.status}`);
     }
 }
-_checkResponse(res);
-{
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(`Error: ${res.status}`);
+ > {
+    const: res = await fetch(`${this.baseUrl}/users/me`)
+};
+if (res.ok) {
+    return await resizeBy.json();
 }
-getUserInfo();
-{
-    return fetch(`${this.baseUrl}/users/me`, {
-        headers: this._headers,
-    })
-        .then(this._checkResponse);
-}
+throw new Error();
+async;
 getInitialCards();
-{
-    return fetch(`${this._baseUrl}/users/me`, {
-        headers: this._headers,
-    })
-        .then(this._checkResponse);
-}
-getInitialCards();
-{
-    return fetch(`${this.baseUrl}/cards`, {
-        headers: this._headers,
-    })
-        .then(this._checkResponse);
-}
-updateUserInfo(name, about);
-{
+Promise < CardData[] > {
+    const: res = await fetch(`${this.baseUrl}/cards`, {
+        headers: this.headers,
+    }),
+    return: await this.checkResponse(res)
+};
+// exportar instancia Api
+const api = new Api({
+    baseUrl: "http://",
+    headers: {}
+});
+/*
+async getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
-        method: 'PATCH',
-        headers: this._headers,
-        body: JSON.stringify({
-            name: name,
-            about: about,
-        }),
-    }).then(this._checkResponse);
+        headers: this.headers,
+    })
+    .then(this.checkResponse);
 }
-addCard(name, link);
-{
+
+/*
+
+async updateUserInfo(name :string, about: string): Promise<UserData> {
+   const res = await fetch(`${this.baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify(data),
+    });
+    return await this.handleResponse<UserData>(res);
+  }
+
+async addCard(name :string, link :string): Promise<CardData> {
     return fetch(`${this.baseUrl}/cards`, {
         method: 'POST',
-        headers: this._headers,
+        headers: this.headers,
         body: JSON.stringify({
             name: name,
             link: link,
         }),
-    }).then(this._checkResponse);
+    }).then(this.checkResponse);
 }
-deleteCard(cardId);
-{
-    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+
+async deleteCard(cardId :string) {
+    const res = await fetch(`${this.baseUrl}/cards/${cardId}`, {
         method: 'DELETE',
-        headers: this._headers,
-    }).then(this._checkResponse);
+        headers: this.headers,
+    });
+    return await this.handleResponse(res);
 }
-likeCard(cardId);
-{
-    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+
+async likeCard(cardId :string) {
+    const res = await fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
         method: 'PUT',
-        headers: this._headers,
-    }).then(this._checkResponse);
+        headers: this.headers,
+    });
+    return await this.handleResponse(res);
 }
-unlikeCard(cardId);
-{
-    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+
+async unlikeCard(cardId :string) {
+    const res = await fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
         method: 'DELETE',
-        headers: this._headers,
-    }).then(this._checkResponse);
+        headers: this.headers,
+    });
+    return await this.handleResponse(res);
 }
-updateAvatar(avatarUrl);
-{
-    return fetch(`${this.baseUrl}/users/me/avatar`, {
+
+async updateAvatar(avatarUrl :string) {
+    const res = await fetch(`${this.baseUrl}/users/me/avatar`, {
         method: 'PATCH',
-        headers: this._headers,
+        headers: this.headers,
         body: JSON.stringify({
             avatar: avatarUrl,
         }),
-    }).then(this._checkResponse);
+    });
+    return await this.handleResponse(res);
 }
+
+}*/
