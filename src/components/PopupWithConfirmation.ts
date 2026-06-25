@@ -1,6 +1,6 @@
 import { Popup } from "./Popup.js";
 
-export class PopupWithConfirmation extends Popup {
+/*export class PopupWithConfirmation extends Popup {
   private form: HTMLFormElement | null;
   //private handleSubmit: () => void;
   constructor(popupSelector :string) {
@@ -15,7 +15,7 @@ as HTMLInputElement;
 
   setSubmitAction(action) {
     this._handleSubmit = action;
-  }
+  };
 
   setEventListeners() {
     super.setEventListeners();
@@ -27,4 +27,4 @@ as HTMLInputElement;
   }
 }
 
-  // api.deleteCard(cardId)
+  // api.deleteCard(cardId) */

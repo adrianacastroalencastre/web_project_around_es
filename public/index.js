@@ -5,6 +5,7 @@ import { UserInfo } from "./components/UserInfo.js";
 import { PopupWithForm } from "./components/PopupWithForms.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { Section } from "./components/Section.js";
+//import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
 import { Api } from "./components/Api.js";
 /*
 const api = new Api('https://around-api.es.tripleten-services.com');
@@ -30,7 +31,6 @@ const userInfo = new UserInfo({
     descriptionSelector: ".profile__description",
 });
 const imagePopup = new PopupWithImage("#image-popup");
-//agregación del video
 // ACTUALIZAR USUARIO CON API Y LUEGO AGREGARLO  EN LA SECCIÓN
 const editProfilePopup = new PopupWithForm("#edit-popup", (inputValues) => {
     userInfo.setUserInfo({
@@ -75,45 +75,64 @@ function renderCard(data) {
     cardSection.addItem(cardElement);
 }
 editProfileButton.addEventListener("click", handleOpenEditModal);
-addCardButton.addEventListener("click", handleOpenAddCardModal);
+addCardButton.addEventListener("click", () => {
+    addCardFormValidator.resetValidation();
+    addCardPopup.open();
+});
+//}, handleOpenAddCardModal);
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 editProfilePopup.setEventListeners();
 addCardPopup.setEventListeners();
 imagePopup.setEventListeners();
 cardSection.renderItems();
-/*
-// INICIALIZACIÓN cuando se carga la página, obtenemos los datos del usuario y las tarjetas desde la API y los renderizamos en la interfaz
-document.addEventListener("DOMContentLoaded", async () => {
-  try {
-  const [cards, userInfo] = await Promise.all( [
-    api.getCards(),
-    api.getUserInfo()
-  ]);
-
-/*  cardSection.renderItems(cards);
-  userInfo.setUserInfo(userInfo);
-  } catch (error) {
-    console.error("Error loading cards:", error);
-  }
-});
-
-
-async function initApp() {
-  try {
-    const [cards, userInfoData] = await Promise.all([
-      api.getCards(),
-      api.getUserInfo(),
-    ]);
-  }
-}
-    initApp();
-
-    */
+// SPRINT 9 
+// 1.Importaciones, 2.Selectores del DOM, 3. Instancias de clases
+// 4.Dunciones de callback, 5.Inicialización de eventlisteners
+// 6.Llamada inicial a la API(promise.all) 
 const api = new Api({
     baseUrl: 'https://around-api.es.tripleten-services.com',
     headers: {
         'authorization': 'ac46fbd6-44c2-43cd-96de-34088853b47e',
         'Content-Type': 'application/json',
+    }
+});
+/*let loading = true;
+
+async function initApp(){
+  try {
+    console.time("initApp");
+    const [userInfo, initialCards] = await Promise.all([
+      api.getUserInfo(),
+      api.getInitialCards()
+      ]);
+      loading = false;
+      console.timeEnd("initApp");
+  //Renderizar perfil
+    /*.textContent = userData.name;
+    profileAbout.textContent = userData.about;
+    profileAvatar.src = userData.avatar;*/
+// renderizar tarjetas
+/*  initialCards.array.forEach(cardData => {
+   const card = new Card(cardData, "#card-template", );
+   cardList.prepend(card.generateCard());
+ });
+ } catch(err) {
+   console.error(err);
+ }
+}
+initApp();
+*/
+// Inicialización cuando se carga la pagina
+document.addEventListener("DOMContentLoaded", async () => {
+    //Obtener los POSTS DESDE UNA API
+    try {
+        const cards = await api.getCards();
+        const userData = await api.getUserInfo();
+        userInfo.setUserInfo(userData);
+        //cardSection.renderItems(cards);
+    }
+    catch (error) {
+        console.error("Error fetching cards:", error);
     }
 });

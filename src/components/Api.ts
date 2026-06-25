@@ -14,48 +14,61 @@ export class Api {
         this.headers = options.headers;
     }
 // Desde aqui analizar codigo
-private checkResponse(res: Response) {
-    if (res.ok) {
-        return res.json();
+/*private checkResponse(res: Response): Promise<T> {
+    if (!res.ok) {
+        throw new Error(`Error fetching cards: ${response.statusText}`);
     }
-    throw new Error(`Error: ${res.status}`);
+    return await response.json();
 }
+}
+*/
 // Methods of API [getUserInfo, getInitialCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
-async getInitialCards(){
-    const res = await fetch(`${this.baseUrl}/cards`,{
-        headers: this.headers
-    });
-    return this.checkResponse(res);
+// -->>>>>>>
+
+async getUserInfo() {
+    const response = await fetch(`${this.baseUrl}/users/me`);
+        if(!response.ok) {
+            throw new Error(`Error fetching user info: ${response.statusText}`);
+    }
+    return await response.json();
+}
+    
+async getCards() {
+    const response = await fetch(`${this.baseUrl}/cards`)
+    if (!response.ok) {
+        throw new Error(`Error fetching cards: ${response.statusText}`);
+    }
+    return await response.json();
+}
 }
 
-async getUserInfo(): Promise<User> {
-    const res = await fetch(`${this.baseUrl}/users/me`,{
-        headers: this.headers
-    });
-    if (res.ok) {
-        return await res.json();
-}
-throw new Error(`Error: ${res.status}`);
-}
 
-async updateUserInfo(name :string, about: string): Promise<UserData> {
+//
+// ---------------------------------------------------------------------------
+
+
+
+
+/*async updateUserInfo(name: string, description: string): Promise<UserInfo> {
    const res = await fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
-      body: JSON.stringify(data),
+      body: JSON.stringify(name, description),
     });
-    return await this.handleResponse<UserData>(res);
+    return await this.handleResponse<UserInfo>(res);
   }
-
+//addCard 
 async addCard(name :string, link :string): Promise<CardData> {
-    return fetch(`${this.baseUrl}/cards`, {
-        method: 'POST',
+    const res = await fetch(`${this.baseUrl}/cards`,{
+        method: "POST",
         headers: this.headers,
-        body: JSON.stringify({ 
-            name: name, 
-            link: link,
-        }),
-    }).then(this.checkResponse);
+        body: JSON.stringify({name, link})
+    });
+
+    if(res.ok) {
+        return await res.json();
+    }
+    throw new Error(`Error: ${res.status}`);
 }
 
 async deleteCard(cardId :string) {
@@ -94,5 +107,4 @@ async updateAvatar(avatarUrl :string) {
 }
 
 }
-
-}
+*/ 

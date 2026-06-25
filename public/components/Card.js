@@ -1,4 +1,8 @@
 export class Card {
+    _name;
+    _link;
+    _templateSelector;
+    _handleCardClick;
     constructor(data, templateSelector, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
@@ -6,9 +10,8 @@ export class Card {
         this._handleCardClick = handleCardClick;
     }
     _getTemplate() {
-        var _a;
         const templateElement = document.querySelector(this._templateSelector);
-        const cardElement = (_a = templateElement.content.querySelector(".card")) === null || _a === void 0 ? void 0 : _a.cloneNode(true);
+        const cardElement = templateElement.content.querySelector(".card")?.cloneNode(true);
         return cardElement;
     }
     _handleLikeClick(likeButton) {
