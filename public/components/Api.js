@@ -6,7 +6,7 @@ export class Api {
         this.baseUrl = options.baseUrl;
         this.headers = options.headers;
     }
-    // Desde aqui analizar codigo
+    // Desde aqui 
     /*private checkResponse(res: Response): Promise<T> {
         if (!res.ok) {
             throw new Error(`Error fetching cards: ${response.statusText}`);
@@ -17,19 +17,19 @@ export class Api {
     */
     // Methods of API [getUserInfo, getInitialCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
     // -->>>>>>>
-    async getUserInfo() {
-        const response = await fetch(`${this.baseUrl}/users/me`);
+    async handleResponse(response) {
         if (!response.ok) {
-            throw new Error(`Error fetching user info: ${response.statusText}`);
+            throw new Error(`API error: ${response.statusText}`);
         }
         return await response.json();
     }
+    async getUserInfo() {
+        const response = await fetch(`${this.baseUrl}/users/1`);
+        return await this.handleResponse(response);
+    }
     async getCards() {
         const response = await fetch(`${this.baseUrl}/cards`);
-        if (!response.ok) {
-            throw new Error(`Error fetching cards: ${response.statusText}`);
-        }
-        return await response.json();
+        return await this.handleResponse(response);
     }
 }
 //
