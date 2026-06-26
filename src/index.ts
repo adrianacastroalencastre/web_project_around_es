@@ -114,7 +114,6 @@ addCardButton.addEventListener("click", () => {
   addCardFormValidator.resetValidation();
   addCardPopup.open();
 });
-//}, handleOpenAddCardModal);
 
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
