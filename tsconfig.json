@@ -1,14 +1,28 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "module": "es2022",
-    "moduleResolution": "bundler",
+    // File Layout
     "rootDir": "./src",
     "outDir": "./public",
-    "strict": true,
+    // Environment Settings
+    "module": "es6",
+    "target": "es2016",
+    "types": [],
+    // Allow JavaScript
     "allowJs": true,
-    "checkJs": false,
-    "esModuleInterop": true
-  },
-  "include": ["src/**/*"]
+    // Other Outputs
+    // "sourceMap": true,
+    // "declaration": true,
+    // "declarationMap": true,
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": false,
+    "exactOptionalPropertyTypes": false,
+    // Recommended Options
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  }
 }

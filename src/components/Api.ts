@@ -1,5 +1,5 @@
-import { CardData } from "./Card";
-import { UserInfo } from "./UserInfo";
+//import { CardData } from "./Card";
+//import { UserInfo } from "./UserInfo";
 interface ApiOptions {
     baseUrl: string;
     headers: Record<string, string>;
