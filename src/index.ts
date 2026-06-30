@@ -6,21 +6,9 @@ import { PopupWithImage } from "./components/PopupWithImage.js";
 import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
 import { Section } from "./components/Section.js";
 import { Api } from "./components/Api.js";
-//import { defaultFormConfig } from "./utils/constants.js";
-export interface UserData {
-    name: string;
-    about: string;
-    avatar: string; 
-    _id: string;
-}
-export interface CardData {
-    _id: string;
-    name: string; 
-    link: string;
-    owner: string;
-    createdAt: string;
-    isLiked: boolean;
-}
+import { type CardData } from "./types/types.js";
+import { defaultFormConfig } from "./utils/constants.js";
+
 
 // DOM Selectores
 const profileInfo = document.querySelector<HTMLElement>(".profile__info")!;
@@ -62,13 +50,13 @@ const userInfo = new UserInfo({
 
 // Sección de tarjetas 
 const cardSection = new Section<CardData>(
-  {renderer: createCard },
+  {items: [], renderer: (item) => {createCard(item)} },
   ".cards__list"
 );
 
 // validación
 function showInputError(forms: HTMLFormElement, input: HTMLInputElement): void {
-  const errorElement = formElement.querySelector<HTMLElement>(`popup__error_type_${input,name}`);
+  const errorElement = formElement.querySelector<HTMLElement>(`popup__error_type_${input.name}`);
   if (errorElement) errorElement.textContent = input.validationMessage;
 }
 
@@ -104,7 +92,7 @@ function resetValidation(
     const card = new Card(item, "#card__template", (name: string, link: string) => {
       imagePopup.open(name, link);
     });
-    cardSection.addItem(card.getView());
+    cardSection.addItem(card.generateCard());
   }
 
   //POPUPS
@@ -113,7 +101,7 @@ function resetValidation(
  const editPopup = new PopupWithForm(
   "edit-popup",
   (inputValues: Record<string, string>) => {
-    api.setUserInfo({ name: inputValues.name, about: inputValues.description }).then((data: ApiUserResponse) => {
+    api.updateUserInfo( inputValues.name, inputValues.description ).then((data) => {
       userInfo.setUserInfo({ name: data.name, description: data.about});
     })
     .catch(console.error);
@@ -123,40 +111,42 @@ function resetValidation(
  const newCardPopup = new PopupWithForm(
   "new-card-popup",
   (inputValues: Record<string, string>) => {
-    api.addCard({name: inputValues["place-name"], link: inputValues.link})
-    .then((cardData: ApiCardResponse) => {
-      createCard({ name: cardData.name, link: cardData.link       
-      });
+    api.addCard(inputValues["place-name"], inputValues.link)
+    .then((cardData) => {
+      createCard(cardData);
     })
     .catch(console.error);
   }
  );
 
  // validadores
-const editProfileValidator = new FormValidator(validationConfig, formElement);
-const newCardValidator = new FormValidator(validationConfig, newCardForm);
+const editProfileValidator = new FormValidator(defaultFormConfig, formElement);
+const newCardValidator = new FormValidator(defaultFormConfig, newCardForm);
 
-editProfileValidator.setEventListeners();
-newCardValidator.setEventListeners();
+editProfileValidator.enableValidation();
+newCardValidator.enableValidation();
 
 // inicialización: datos remotos
+async function initApp() {  
 try {
   const [userData, initialCards] = await Promise.all([
     api.getUserInfo(),
-    api.getInitialCards()
+    api.getCards()
   ]);
+  userInfo.setUserInfo({name: userData.name, description: userData.about})
   // aqui ya tienes ambos resultados listos para renderizar
 } catch (error) {
   console.error("Fallo al cargar datos iniciales:", error);
 }
-
+}
 // Listeners de eventos
+initApp();
 imagePopup.setEventListeners();
 editPopup.setEventListeners();
 newCardPopup.setEventListeners();
 
 openModal.addEventListener("click", () => {
-  const userData: UserData = userInfo.getUserInfo();
+  const userData = userInfo.getUserInfo();
   inputName.value = userData.name;
   inputDescription.value = userData.description;
   resetValidation(formElement, inputList, saveButton);

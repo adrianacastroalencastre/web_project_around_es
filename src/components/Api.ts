@@ -1,6 +1,6 @@
 import { UserInfo } from "./UserInfo";
 
-import type { CardData } from "../types/types";
+import type { CardData, UserData } from "../types/types";
 interface ApiOptions {
     baseUrl: string;
     headers: Record<string, string>;
@@ -27,7 +27,7 @@ private async handleResponse<T>(response: Response): Promise<T> {
 //metodos
 async getUserInfo() {
     const response = await fetch(`${this.baseUrl}/users/1`);
-    return await this.handleResponse(response);
+    return await this.handleResponse<UserData>(response);
 }
     
 async getCards(): Promise<CardData[]> {
@@ -36,16 +36,13 @@ async getCards(): Promise<CardData[]> {
 }
 
 
-// ---------------------------------------------------------------------------
-
-
-async updateUserInfo(name: string, description: string): Promise<UserInfo> {
+async updateUserInfo(name: string, about: string): Promise<UserData> {
    const res = await fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
-      body: JSON.stringify({name, description}),
+      body: JSON.stringify({name, about}),
     });
-    return await this.handleResponse<UserInfo>(res);
+    return await this.handleResponse<UserData>(res);
   }
 //addCard 
 async addCard(name :string, link :string): Promise<CardData> {
