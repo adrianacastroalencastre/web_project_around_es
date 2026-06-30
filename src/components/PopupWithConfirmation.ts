@@ -1,30 +1,23 @@
+type FormSubmitHandler = (inputValues: Record<string, string>) => void;
 import { Popup } from "./Popup.js";
 
-/*export class PopupWithConfirmation extends Popup {
-  private form: HTMLFormElement | null;
-  //private handleSubmit: () => void;
-  constructor(popupSelector :string) {
-    super(popupSelector);
-    this.form = this.popup.querySelector(".popup__form");
-  }
+export class PopupWithConfirmation extends Popup { 
+    //private handleConfirm: () => void;
 
-const getUserInfo = form.querySelector(
-  ".form__input_type-id",
-)
-as HTMLInputElement; 
-
-  setSubmitAction(action) {
-    this._handleSubmit = action;
-  };
-
-  setEventListeners() {
-    super.setEventListeners();
-
-    this.form.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      this.handleSubmit();
-    });
-  }
+    constructor(popupSelector: string) {
+        super(popupSelector);
+    }
 }
 
-  // api.deleteCard(cardId) */
+/*setAction(callback: () => void): void {
+    this.handleConfirm = callback;
+} 
+
+setEventListeners(): void {
+    super.setEventListeners();
+    const confirmButton = this.popup.querySelector(".popup__button");
+    confirmButton?.addEventListener("click", ()=> {
+        this.handleConfirm();
+    });
+}
+*/

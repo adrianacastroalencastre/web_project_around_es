@@ -1,38 +1,25 @@
 import { FormValidator } from "./components/FormValidator.js";
-import { defaultFormConfig, initialCards } from "./utils/constants.js";
 import { Card } from "./components/Card.js";
 import { UserInfo } from "./components/UserInfo.js";
 import { PopupWithForm } from "./components/PopupWithForms.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
+import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
 import { Section } from "./components/Section.js";
-//import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
 import { Api } from "./components/Api.js";
-
-interface CardData {
-  name:string;
-  link:string;
+//import { defaultFormConfig } from "./utils/constants.js";
+export interface UserData {
+    name: string;
+    about: string;
+    avatar: string; 
+    _id: string;
 }
-
-interface UserData {
-  name: string;
-  description: string;
-}
-
-interface ApiUserResponse {
-  name: string;
-  about: string;
-}
-
-interface ApiCardResponse {
-  name: string;
-  link: string;
-  _id: string;
-}
-
-interface ValidationConfig {
-  inputSelector: string;
-  submitButtonSelector: string;
-  inactiveButtonSelector: string;
+export interface CardData {
+    _id: string;
+    name: string; 
+    link: string;
+    owner: string;
+    createdAt: string;
+    isLiked: boolean;
 }
 
 // DOM Selectores
@@ -54,21 +41,23 @@ const inputList = Array.from(formElement.querySelectorAll<HTMLInputElement>(".po
 const newCardinputs = Array.from(newCardForm.querySelectorAll<HTMLInputElement>(".popup__input"));
 
 // Configuración
-
-const validationConfig: ValidationConfig = {
+const Formconfig  = {
   inputSelector: ".popup__input",
   submitButtonSelector: "popup__button",
   inactiveButtonClass: "popup__button_disabled",
 };
 
-const api new Api({
+const api = new Api({
   baseUrl: "https://around-api.es.tripleten-services.com/v1",
-  token: "ac46fbd6-44c2-43cd-96de-34088853b47e"
-});
+  headers:{ 
+    authorization: "ac46fbd6-44c2-43cd-96de-34088853b47e",
+    "Content-Type": "application/json"
+}});
 
+////
 const userInfo = new UserInfo({
-  nameSelector: "",
-  jobSelector: ".profile__descripotion",
+  nameSelector: ".profile__title",
+  descriptionSelector: ".profile__description",
 });
 
 // Sección de tarjetas 
@@ -151,18 +140,15 @@ editProfileValidator.setEventListeners();
 newCardValidator.setEventListeners();
 
 // inicialización: datos remotos
-api.getUserInfo()
-.then((data: ApiUserResponse) => {
-  userInfo.setUserInfo({ name: data.name, description: data.about });
-})
-.catch(console.error);
-
-api
-.getInitialCards()
-.then((cards: ApiCardResponse[]) => {
-  cardSection.renderItems(cards);
-})
-.catch(console.error);
+try {
+  const [userData, initialCards] = await Promise.all([
+    api.getUserInfo(),
+    api.getInitialCards()
+  ]);
+  // aqui ya tienes ambos resultados listos para renderizar
+} catch (error) {
+  console.error("Fallo al cargar datos iniciales:", error);
+}
 
 // Listeners de eventos
 imagePopup.setEventListeners();

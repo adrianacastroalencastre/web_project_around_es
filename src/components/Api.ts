@@ -1,5 +1,6 @@
-//import { CardData } from "./Card";
-//import { UserInfo } from "./UserInfo";
+import { UserInfo } from "./UserInfo";
+
+import type { Card } from "./Card";
 interface ApiOptions {
     baseUrl: string;
     headers: Record<string, string>;
@@ -13,43 +14,32 @@ export class Api {
         this.baseUrl = options.baseUrl; 
         this.headers = options.headers;
     }
-// Desde aqui 
-/*private checkResponse(res: Response): Promise<T> {
-    if (!res.ok) {
-        throw new Error(`Error fetching cards: ${response.statusText}`);
-    }
-    return await response.json();
-}
-}
-*/
-// Methods of API [getUserInfo, getInitialCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
-// -->>>>>>>
-private async handleResponse(response: Response) {
+
+    // Methods of API [getUserInfo, getInitialCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
+// verificar respuesta-->>>>>>>
+private async handleResponse<T>(response: Response): Promise<T> {
     if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
+        throw new Error(`API error: ${response.status}`);
     }
-    return await response.json();
+    return response.json();
 }
 
+//metodos
 async getUserInfo() {
     const response = await fetch(`${this.baseUrl}/users/1`);
     return await this.handleResponse(response);
 }
     
-async getCards() {
+async getCards(): Promise<CardData[]> {
     const response = await fetch(`${this.baseUrl}/cards`)
    return await this.handleResponse(response);
 }
 }
 
-
-//
 // ---------------------------------------------------------------------------
 
 
-
-
-/*async updateUserInfo(name: string, description: string): Promise<UserInfo> {
+async updateUserInfo(name: string, description: string): Promise<UserInfo> {
    const res = await fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
@@ -105,6 +95,3 @@ async updateAvatar(avatarUrl :string) {
     });
     return await this.handleResponse(res);
 }
-
-}
-*/ 
