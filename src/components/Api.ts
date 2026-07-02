@@ -15,8 +15,7 @@ export class Api {
         this.headers = options.headers;
     }
 
-    // Methods of API [getUserInfo, getInitialCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
-// verificar respuesta-->>>>>>>
+// Methods of API [getUserInfo, getInitialCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
 private async handleResponse<T>(response: Response): Promise<T> {
     if (!response.ok) {
         throw new Error(`API error: ${response.status}`);
@@ -26,7 +25,7 @@ private async handleResponse<T>(response: Response): Promise<T> {
 
 //metodos
 async getUserInfo() {
-    const response = await fetch(`${this.baseUrl}/users/1`);
+    const response = await fetch(`${this.baseUrl}/users/me`);
     return await this.handleResponse<UserData>(response);
 }
     

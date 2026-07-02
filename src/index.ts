@@ -36,7 +36,7 @@ const Formconfig  = {
 };
 
 const api = new Api({
-  baseUrl: "https://around-api.es.tripleten-services.com/v1",
+  baseUrl: "https://around-api.es.tripleten-services.com/v1/grupo12",
   headers:{ 
     authorization: "ac46fbd6-44c2-43cd-96de-34088853b47e",
     "Content-Type": "application/json"

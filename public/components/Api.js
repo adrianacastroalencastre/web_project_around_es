@@ -15,7 +15,6 @@ export class Api {
         this.headers = options.headers;
     }
     // Methods of API [getUserInfo, getInitialCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
-    // verificar respuesta-->>>>>>>
     handleResponse(response) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!response.ok) {
@@ -27,7 +26,7 @@ export class Api {
     //metodos
     getUserInfo() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`${this.baseUrl}/users/1`);
+            const response = yield fetch(`${this.baseUrl}/users/me`);
             return yield this.handleResponse(response);
         });
     }
