@@ -116,7 +116,6 @@ function initApp() {
                 api.getCards()
             ]);
             userInfo.setUserInfo({ name: userData.name, description: userData.about });
-            // aqui ya tienes ambos resultados listos para renderizar
         }
         catch (error) {
             console.error("Fallo al cargar datos iniciales:", error);

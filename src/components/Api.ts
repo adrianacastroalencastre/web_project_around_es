@@ -15,7 +15,7 @@ export class Api {
         this.headers = options.headers;
     }
 
-// Methods of API [getUserInfo, getInitialCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
+// Methods of API [getUserInfo, getCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
 private async handleResponse<T>(response: Response): Promise<T> {
     if (!response.ok) {
         throw new Error(`API error: ${response.status}`);

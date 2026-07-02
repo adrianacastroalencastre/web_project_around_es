@@ -14,7 +14,7 @@ export class Api {
         this.baseUrl = options.baseUrl;
         this.headers = options.headers;
     }
-    // Methods of API [getUserInfo, getInitialCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
+    // Methods of API [getUserInfo, getCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
     handleResponse(response) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!response.ok) {
