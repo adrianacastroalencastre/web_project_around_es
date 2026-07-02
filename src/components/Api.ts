@@ -25,13 +25,17 @@ private async handleResponse<T>(response: Response): Promise<T> {
 
 //metodos
 async getUserInfo() {
-    const response = await fetch(`${this.baseUrl}/users/me`);
+    const response = await fetch(`${this.baseUrl}/users/me`,{
+        headers: this.headers,
+    });
     return await this.handleResponse<UserData>(response);
 }
     
 async getCards(): Promise<CardData[]> {
-    const response = await fetch(`${this.baseUrl}/cards`)
-   return await this.handleResponse(response);
+    const response = await fetch(`${this.baseUrl}/cards`, {
+        headers: this.headers,
+    });
+    return await this.handleResponse(response);
 }
 
 
@@ -39,7 +43,7 @@ async updateUserInfo(name: string, about: string): Promise<UserData> {
    const res = await fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
-      body: JSON.stringify({name, about}),
+      body: JSON.stringify({name: name, about: about}),
     });
     return await this.handleResponse<UserData>(res);
   }

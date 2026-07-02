@@ -26,13 +26,17 @@ export class Api {
     //metodos
     getUserInfo() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`${this.baseUrl}/users/me`);
+            const response = yield fetch(`${this.baseUrl}/users/me`, {
+                headers: this.headers,
+            });
             return yield this.handleResponse(response);
         });
     }
     getCards() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`${this.baseUrl}/cards`);
+            const response = yield fetch(`${this.baseUrl}/cards`, {
+                headers: this.headers,
+            });
             return yield this.handleResponse(response);
         });
     }
@@ -41,7 +45,7 @@ export class Api {
             const res = yield fetch(`${this.baseUrl}/users/me`, {
                 method: 'PATCH',
                 headers: this.headers,
-                body: JSON.stringify({ name, about }),
+                body: JSON.stringify({ name: name, about: about }),
             });
             return yield this.handleResponse(res);
         });
