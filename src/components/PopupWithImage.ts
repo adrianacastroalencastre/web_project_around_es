@@ -6,10 +6,10 @@ export class PopupWithImage extends Popup {
   constructor(popupSelector: string) {
     super(popupSelector);
 
-    this.imageElement = this._popupElement.querySelector(
+    this.imageElement = this.popupElement.querySelector(
       ".popup__image"
     ) as HTMLImageElement;
-    this.captionElement = this._popupElement.querySelector(
+    this.captionElement = this.popupElement.querySelector(
       ".popup__caption"
     ) as HTMLElement;
   }

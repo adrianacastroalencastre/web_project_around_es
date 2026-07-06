@@ -30,15 +30,12 @@ const inputDescription = document.querySelector(".popup__input_type_description"
 const saveButton = formElement.querySelector(".popup__button");
 const newCardButton = newCardForm.querySelector(".popup__button");
 const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
-const newCardinputs = Array.from(newCardForm.querySelectorAll(".popup__input"));
-// Configuración
-const Formconfig = {
-    inputSelector: ".popup__input",
-    submitButtonSelector: "popup__button",
-    inactiveButtonClass: "popup__button_disabled",
-};
+const newCardInputs = Array.from(newCardForm.querySelectorAll(".popup__input"));
+//
+const formValidator = new FormValidator(defaultFormConfig, formElement);
+//
 const api = new Api({
-    baseUrl: "https://around-api.es.tripleten-services.com/v1/users/me",
+    baseUrl: "https://around-api.es.tripleten-services.com/v1",
     headers: {
         authorization: "ac46fbd6-44c2-43cd-96de-34088853b47e",
         "Content-Type": "application/json"
@@ -73,7 +70,7 @@ function checkInputValidity(form, input) {
 function toggleButtonState(inputs, button) {
     const isFormValid = inputs.every((input) => input.validity.valid);
     button.disabled = !isFormValid;
-    button.classList.toggle("popup__button_disables", !isFormValid);
+    button.classList.toggle(".popup__button_disabled", !isFormValid);
 }
 function resetValidation(form, inputs, button) {
     inputs.forEach((input) => hideInputError(form, input));
@@ -89,14 +86,14 @@ function createCard(item) {
 }
 //POPUPS
 const imagePopup = new PopupWithImage("#image-popup");
-const editPopup = new PopupWithForm("edit-popup", (inputValues) => {
+const editPopup = new PopupWithForm("#edit-popup", (inputValues) => {
     api.updateUserInfo(inputValues.name, inputValues.description).then((data) => {
         userInfo.setUserInfo({ name: data.name, description: data.about });
     })
         .catch(console.error);
 });
-const newCardPopup = new PopupWithForm("new-card-popup", (inputValues) => {
-    api.addCard(inputValues["place-name"], inputValues.link)
+const newCardPopup = new PopupWithForm("#new-card-popup", (inputValues) => {
+    api.addCard(inputValues["#place-name"], inputValues.link)
         .then((cardData) => {
         createCard(cardData);
     })
@@ -113,9 +110,12 @@ function initApp() {
         try {
             const [userData, initialCards] = yield Promise.all([
                 api.getUserInfo(),
-                api.getCards()
+                api.getInitialCards()
             ]);
             userInfo.setUserInfo({ name: userData.name, description: userData.about });
+            initialCards.forEach((cardData) => {
+                createCard(cardData);
+            });
         }
         catch (error) {
             console.error("Fallo al cargar datos iniciales:", error);
@@ -135,7 +135,7 @@ openModal.addEventListener("click", () => {
     editPopup.open();
 });
 openNewCardModelButton.addEventListener("click", () => {
-    resetValidation(newCardForm, newCardinputs, newCardButton);
+    resetValidation(newCardForm, newCardInputs, newCardButton);
     newCardPopup.open();
 });
 inputList.forEach((input) => {
@@ -144,9 +144,9 @@ inputList.forEach((input) => {
         toggleButtonState(inputList, saveButton);
     });
 });
-newCardinputs.forEach((input) => {
+newCardInputs.forEach((input) => {
     inputDescription.addEventListener("input", () => {
         checkInputValidity(newCardForm, input);
-        toggleButtonState(newCardinputs, newCardButton);
+        toggleButtonState(newCardInputs, newCardButton);
     });
 });

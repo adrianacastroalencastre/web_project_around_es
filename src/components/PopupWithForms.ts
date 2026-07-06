@@ -8,7 +8,7 @@ export class PopupWithForm extends Popup {
   constructor(popupSelector: string, handleFormSubmit: FormSubmitHandler) {
     super(popupSelector);
 
-    this.formElement = this._popupElement.querySelector(
+    this.formElement = this.popupElement.querySelector(
       ".popup__form"
     ) as HTMLFormElement;
     this.inputList = Array.from(
@@ -17,7 +17,7 @@ export class PopupWithForm extends Popup {
     this.handleFormSubmit = handleFormSubmit;
   }
 
-  private _getInputValues(): Record<string, string> {
+  private getInputValues(): Record<string, string> {
     const inputValues: Record<string, string> = {};
 
     this.inputList.forEach((inputElement) => {
@@ -32,7 +32,7 @@ export class PopupWithForm extends Popup {
 
     this.formElement.addEventListener("submit", (evt: SubmitEvent) => {
       evt.preventDefault();
-      this.handleFormSubmit(this._getInputValues());
+      this.handleFormSubmit(this.getInputValues());
     });
   }
 
