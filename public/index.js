@@ -32,7 +32,8 @@ const newCardButton = newCardForm.querySelector(".popup__button");
 const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
 const newCardInputs = Array.from(newCardForm.querySelectorAll(".popup__input"));
 //
-const formValidator = new FormValidator(defaultFormConfig, formElement);
+const profileormValidator = new FormValidator(defaultFormConfig, formElement);
+const cardFormValidator = new FormValidator(defaultFormConfig, newCardForm);
 //
 const api = new Api({
     baseUrl: "https://around-api.es.tripleten-services.com/v1",
@@ -89,13 +90,15 @@ const imagePopup = new PopupWithImage("#image-popup");
 const editPopup = new PopupWithForm("#edit-popup", (inputValues) => {
     api.updateUserInfo(inputValues.name, inputValues.description).then((data) => {
         userInfo.setUserInfo({ name: data.name, description: data.about });
+        editPopup.close();
     })
         .catch(console.error);
 });
 const newCardPopup = new PopupWithForm("#new-card-popup", (inputValues) => {
-    api.addCard(inputValues["#place-name"], inputValues.link)
+    api.addCard(inputValues["place-name"], inputValues.link)
         .then((cardData) => {
         createCard(cardData);
+        newCardPopup.close();
     })
         .catch(console.error);
 });
@@ -135,6 +138,12 @@ openModal.addEventListener("click", () => {
     editPopup.open();
 });
 openNewCardModelButton.addEventListener("click", () => {
+    resetValidation(newCardForm, newCardInputs, newCardButton);
+    newCardPopup.open();
+});
+//avatar perfil edit
+const avatarEditButton = document.querySelector(".profile__avatar-container");
+avatarEditButton.addEventListener("click", () => {
     resetValidation(newCardForm, newCardInputs, newCardButton);
     newCardPopup.open();
 });

@@ -1,17 +1,11 @@
-interface FormConfig {
-  inputSelector: string;
-  submitButtonSelector: string;
-  inactiveButtonClass: string;
-  inputErrorClass: string;
-  errorClass: string; 
-}; 
+import type {FormConfig} from "../utils/constants";
 export class FormValidator {
   private config: FormConfig;
   private formElement: HTMLFormElement;
   private inputList: HTMLInputElement[];
   private buttonElement: HTMLButtonElement;
 
-  constructor(config: FormConfig, formElement: HTMLFormElement, inputList?: HTMLInputElement[], buttonElement?: HTMLButtonElement) {
+  constructor(config: FormConfig, formElement: HTMLFormElement) {
     this.config = config;
     this.formElement = formElement;
     this.inputList = Array.from(
@@ -42,23 +36,23 @@ export class FormValidator {
     } 
   } 
 
-  /*private showInputError(
+  private showInputError(
     inputElement: HTMLInputElement,
-    errorMessage: string
+   // errorMessage: string
   ): void {
     const errorElement = this.formElement.querySelector(
-      `.${inputElement.name}-error`
-    ) as HTMLElement;
+      `.popup__error_type_${inputElement.name}`
+    ) as HTMLSpanElement;
 
     inputElement.classList.add(this.config.inputErrorClass);
-    errorElement.textContent = errorMessage;
+    errorElement.textContent = inputElement.validationMessage;
     errorElement.classList.add(this.config.errorClass);
   }
 
   private hideInputError(inputElement: HTMLInputElement): void {
     const errorElement = this.formElement.querySelector(
-      `.${inputElement.name}-error`
-    ) as HTMLElement;
+      `.popup__error_type_${inputElement.name}`
+    ) as HTMLSpanElement;
 
     inputElement.classList.remove(this.config.inputErrorClass);
     errorElement.textContent = "";
@@ -67,7 +61,7 @@ export class FormValidator {
 
   private checkInputValidity(inputElement: HTMLInputElement): void {
     if (!inputElement.validity.valid) {
-      this.showInputError(inputElement, inputElement.validationMessage);
+      this.showInputError(inputElement);
     } else {
       this.hideInputError(inputElement);
     }
@@ -89,7 +83,9 @@ export class FormValidator {
     } else {
       this.enableButton();
     }
-  }*/
+  }
+
+  /**/
      
   private setEventListeners(): void {
     const inputList = Array.from(
@@ -101,6 +97,7 @@ export class FormValidator {
 
     inputList.forEach((input) => {
       input.addEventListener("input", () => {
+        this.checkInputValidity(input);
         this.toggleButtonState(inputList, button);
       });
     });
@@ -119,6 +116,9 @@ export class FormValidator {
       this.config.submitButtonSelector
     )!;
 
+    inputList.forEach((input) => {
+      this.hideInputError(input);
+    });
     this.toggleButtonState(inputList, button);
 }
 }

@@ -1,4 +1,4 @@
-interface FormConfig {
+export interface FormConfig {
   inputSelector: string;
   submitButtonSelector: string;
   inactiveButtonClass: string;
@@ -11,7 +11,7 @@ export const defaultFormConfig: FormConfig = {
   submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
+  errorClass: "popup__error_active",
 };
 
 export const initialCards = [

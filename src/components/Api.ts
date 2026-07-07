@@ -23,7 +23,6 @@ private async handleResponse<T>(response: Response): Promise<T> {
     }
     return Promise.reject(`Error: ${response.status}`);
 }
-
 //metodos
 async getUserInfo() {
     const response = await fetch(`${this.baseUrl}/users/me`,{
