@@ -18,7 +18,15 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img class="profile__image" src="./images/avatar.jpg" alt="Avatar" />
+          <div class="profile__avatar-container">
+            <img
+              class="profile__image"
+              src="./images/avatar.jpg"
+              alt="Avatar"
+            />
+            <div class="profile__avatar-overlay"></div>
+          </div>
+
           <div class="profile__info profile__avatar-container">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -81,7 +89,7 @@
               minlength="2"
               maxlength="40"
             />
-            <span class="popup__error" popup__error_type_name></span>
+            <span class="popup__error popup__error_type_name"></span>
 
             <input
               class="popup__input popup__input_type_description"
