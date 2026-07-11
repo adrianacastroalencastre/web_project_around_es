@@ -52,14 +52,6 @@ export class FormValidator {
         this.buttonElement.disabled = false;
         this.buttonElement.classList.remove(this.config.inactiveButtonClass);
     }
-    /*private toggleButtonState(inputList: HTMLInputElement[], button: HTMLButtonElement): void {
-      if (this.hasInvalidInput()) {
-        this.disableButton();
-      } else {
-        this.enableButton();
-      }
-    }
-  
     /**/
     setEventListeners() {
         const inputList = Array.from(this.formElement.querySelectorAll(this.config.inputSelector));

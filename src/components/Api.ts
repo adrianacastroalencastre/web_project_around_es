@@ -1,6 +1,6 @@
 //import { UserInfo } from "./UserInfo";
 
-import type { CardData, UserData } from "../types/types";
+import type { AvatarFormData, CardData, UserData } from "../types/types";
 interface ApiOptions {
     baseUrl: string;
     headers: Record<string, string>;
@@ -88,7 +88,7 @@ async unlikeCard(cardId :string) {
     return await this.handleResponse(response);
 }   
 
-async updateAvatar(avatarUrl :string) {
+async updateAvatar(avatarUrl: AvatarFormData["avatar"]): Promise<UserData> {
     const response = await fetch(`${this.baseUrl}/users/me/avatar`, {
         method: 'PATCH',
         headers: this.headers,
@@ -96,6 +96,6 @@ async updateAvatar(avatarUrl :string) {
             avatar: avatarUrl,
         }),
     });
-    return await this.handleResponse(response);
+    return await this.handleResponse<UserData>(response);
 }
 }

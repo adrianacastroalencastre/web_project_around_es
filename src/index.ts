@@ -1,12 +1,13 @@
 import { FormValidator } from "./components/FormValidator.js";
 import { Card } from "./components/Card.js";
 import { UserInfo } from "./components/UserInfo.js";
+import type { UserData } from "./types/types.js";
 import { PopupWithForm } from "./components/PopupWithForms.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
 import { Section } from "./components/Section.js";
 import { Api } from "./components/Api.js";
-import { type CardData } from "./types/types.js";
+import type { CardData } from "./types/types.js";
 import { defaultFormConfig } from "./utils/constants.js";
 
 // DOM Selectores
@@ -27,8 +28,8 @@ const newCardButton = newCardForm.querySelector<HTMLButtonElement>(".popup__butt
 const inputList = Array.from(formElement.querySelectorAll<HTMLInputElement>(".popup__input"));
 const newCardInputs = Array.from(newCardForm.querySelectorAll<HTMLInputElement>(".popup__input"));
 //
-const profileormValidator = new FormValidator(defaultFormConfig, formElement);
-const cardFormValidator = new FormValidator(defaultFormConfig, newCardForm);
+// -->const profileFormValidator = new FormValidator(defaultFormConfig, formElement);
+//const cardFormValidator = new FormValidator(defaultFormConfig, newCardForm);
 //
 const api = new Api({
   baseUrl: "https://around-api.es.tripleten-services.com/v1",
@@ -41,6 +42,7 @@ const api = new Api({
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   descriptionSelector: ".profile__description",
+  avatarSelector: ".profile__avatar"
 });
 
 // Sección de tarjetas 
@@ -97,7 +99,7 @@ function resetValidation(
   "#edit-popup",
   (inputValues: Record<string, string>) => {
     api.updateUserInfo( inputValues.name, inputValues.description ).then((data) => {
-      userInfo.setUserInfo({ name: data.name, description: data.about});
+      userInfo.setUserInfo({ name: data.name, about: data.about, avatar: data.avatar });
       editPopup.close();
     })
     .catch(console.error);
@@ -116,11 +118,22 @@ function resetValidation(
   }
  );
 
+ const editAvatarPopup = new PopupWithForm(
+   "#edit-avatar-form",
+  async (inputValues: Record<string, string>) => {
+   api.updateAvatar( inputValues.avatar).then((data) => {
+      userInfo.setUserInfo(data);
+      editAvatarPopup.close();
+    })
+    .catch(console.error);
+  }
+ );
+
  // validadores
-const editProfileValidator = new FormValidator(defaultFormConfig, formElement);
+const profileFormValidator = new FormValidator(defaultFormConfig, formElement);
 const newCardValidator = new FormValidator(defaultFormConfig, newCardForm);
 
-editProfileValidator.enableValidation();
+profileFormValidator.enableValidation();
 newCardValidator.enableValidation();
 
 // inicialización: datos remotos
@@ -130,7 +143,7 @@ try {
     api.getUserInfo(),
     api.getInitialCards()
   ]);
-  userInfo.setUserInfo({name: userData.name, description: userData.about})
+  userInfo.setUserInfo({name: userData.name, about: userData.about, avatar: userData.avatar});
   initialCards.forEach((cardData) => {
     createCard(cardData);
   });
@@ -144,11 +157,12 @@ initApp();
 imagePopup.setEventListeners();
 editPopup.setEventListeners();
 newCardPopup.setEventListeners();
+editAvatarPopup.setEventListeners();
 
 openModal.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
   inputName.value = userData.name;
-  inputDescription.value = userData.description;
+  inputDescription.value = userData.about;
   resetValidation(formElement, inputList, saveButton);
   editPopup.open();
 });
@@ -158,10 +172,10 @@ openNewCardModelButton.addEventListener("click", () => {
   newCardPopup.open();
 });
 //avatar perfil edit
-const avatarEditButton = document.querySelector<HTMLButtonElement>(".profile__avatar-container")!;
+const avatarEditButton = document.querySelector<HTMLFormElement>(".profile__avatar-container")!;
 avatarEditButton.addEventListener("click", () => {
-  resetValidation(newCardForm, newCardInputs, newCardButton);
-  newCardPopup.open();
+  resetValidation({ } as HTMLFormElement, [], {} as HTMLButtonElement);
+  editAvatarPopup.open();
 });
 
 inputList.forEach((input) => {

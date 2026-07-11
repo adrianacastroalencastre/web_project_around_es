@@ -1,11 +1,9 @@
 // Usuario - name, about, avatar, _id
 // Tarjeta - _id, name, link, owner, isLiked, createdAt
-
 export interface UserData {
     name: string;
     about: string;
     avatar: string; 
-    _id: string;
 }
 
 export interface CardData {
@@ -15,4 +13,8 @@ export interface CardData {
     owner: string;
     createdAt: string;
     isLiked: boolean;
+}
+
+export interface AvatarFormData {
+    avatar: string;
 }

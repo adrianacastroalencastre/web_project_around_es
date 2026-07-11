@@ -77,14 +77,6 @@ export class FormValidator {
     this.buttonElement.classList.remove(this.config.inactiveButtonClass);
   }
 
-  /*private toggleButtonState(inputList: HTMLInputElement[], button: HTMLButtonElement): void {
-    if (this.hasInvalidInput()) {
-      this.disableButton();
-    } else {
-      this.enableButton();
-    }
-  }
-
   /**/
      
   private setEventListeners(): void {
@@ -122,3 +114,5 @@ export class FormValidator {
     this.toggleButtonState(inputList, button);
 }
 }
+
+   

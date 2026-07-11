@@ -15,7 +15,6 @@ import { PopupWithImage } from "./components/PopupWithImage.js";
 import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
 import { Section } from "./components/Section.js";
 import { Api } from "./components/Api.js";
-import {} from "./types/types.js";
 import { defaultFormConfig } from "./utils/constants.js";
 // DOM Selectores
 const profileInfo = document.querySelector(".profile__info");
@@ -32,8 +31,8 @@ const newCardButton = newCardForm.querySelector(".popup__button");
 const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
 const newCardInputs = Array.from(newCardForm.querySelectorAll(".popup__input"));
 //
-const profileormValidator = new FormValidator(defaultFormConfig, formElement);
-const cardFormValidator = new FormValidator(defaultFormConfig, newCardForm);
+// -->const profileFormValidator = new FormValidator(defaultFormConfig, formElement);
+//const cardFormValidator = new FormValidator(defaultFormConfig, newCardForm);
 //
 const api = new Api({
     baseUrl: "https://around-api.es.tripleten-services.com/v1",
@@ -46,6 +45,7 @@ const api = new Api({
 const userInfo = new UserInfo({
     nameSelector: ".profile__title",
     descriptionSelector: ".profile__description",
+    avatarSelector: ".profile__avatar"
 });
 // Sección de tarjetas 
 const cardSection = new Section({ items: [], renderer: (item) => { createCard(item); } }, ".cards__list");
@@ -89,7 +89,7 @@ function createCard(item) {
 const imagePopup = new PopupWithImage("#image-popup");
 const editPopup = new PopupWithForm("#edit-popup", (inputValues) => {
     api.updateUserInfo(inputValues.name, inputValues.description).then((data) => {
-        userInfo.setUserInfo({ name: data.name, description: data.about });
+        userInfo.setUserInfo({ name: data.name, about: data.about, avatar: data.avatar });
         editPopup.close();
     })
         .catch(console.error);
@@ -102,10 +102,17 @@ const newCardPopup = new PopupWithForm("#new-card-popup", (inputValues) => {
     })
         .catch(console.error);
 });
+const editAvatarPopup = new PopupWithForm("#edit-avatar-form", (inputValues) => __awaiter(void 0, void 0, void 0, function* () {
+    api.updateAvatar(inputValues.avatar).then((data) => {
+        userInfo.setUserInfo(data);
+        editAvatarPopup.close();
+    })
+        .catch(console.error);
+}));
 // validadores
-const editProfileValidator = new FormValidator(defaultFormConfig, formElement);
+const profileFormValidator = new FormValidator(defaultFormConfig, formElement);
 const newCardValidator = new FormValidator(defaultFormConfig, newCardForm);
-editProfileValidator.enableValidation();
+profileFormValidator.enableValidation();
 newCardValidator.enableValidation();
 // inicialización: datos remotos
 function initApp() {
@@ -115,7 +122,7 @@ function initApp() {
                 api.getUserInfo(),
                 api.getInitialCards()
             ]);
-            userInfo.setUserInfo({ name: userData.name, description: userData.about });
+            userInfo.setUserInfo({ name: userData.name, about: userData.about, avatar: userData.avatar });
             initialCards.forEach((cardData) => {
                 createCard(cardData);
             });
@@ -130,10 +137,11 @@ initApp();
 imagePopup.setEventListeners();
 editPopup.setEventListeners();
 newCardPopup.setEventListeners();
+editAvatarPopup.setEventListeners();
 openModal.addEventListener("click", () => {
     const userData = userInfo.getUserInfo();
     inputName.value = userData.name;
-    inputDescription.value = userData.description;
+    inputDescription.value = userData.about;
     resetValidation(formElement, inputList, saveButton);
     editPopup.open();
 });
@@ -144,8 +152,8 @@ openNewCardModelButton.addEventListener("click", () => {
 //avatar perfil edit
 const avatarEditButton = document.querySelector(".profile__avatar-container");
 avatarEditButton.addEventListener("click", () => {
-    resetValidation(newCardForm, newCardInputs, newCardButton);
-    newCardPopup.open();
+    resetValidation({}, [], {});
+    editAvatarPopup.open();
 });
 inputList.forEach((input) => {
     input.addEventListener("input", () => {

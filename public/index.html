@@ -8,33 +8,46 @@
     <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
-    <div class="page__content">
-      <header class="header page__section">
+    <header class="header page__section">
         <img
           alt="Logotipo Around The U.S."
           class="logo header__logo"
           src="./images/logo.svg"
         />
-      </header>
-      <main class="content">
-        <section class="profile page__section">
+    </header >
+    <main class="content">
+      <section class="profile page__section">
           <div class="profile__avatar-container">
-            <img
-              class="profile__image"
-              src="./images/avatar.jpg"
-              alt="Avatar"
-            />
-            <div class="profile__avatar-overlay"></div>
-          </div>
-
-          <div class="profile__info profile__avatar-container">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+          <h1 class="profile__title">Jacques Cousteau</h1>
             <button
-              aria-label="Editar foto de perfil"
+              aria-label="Editar descripcion"
               class="profile__edit-button"
               type="button"
             ></button>
             <p class="profile__description">Explorador</p>
+            <img
+            class="profile__image"
+            src="./images/avatar.jpg"
+            alt="Avatar"  />
+            <button class="profile__edit-button">Editar</button>
+          </div>
+
+          <div class="popup" id="avatar-popup">
+            <button
+              aria-label="Editar avatar"
+              class="profile__edit-button"
+              type="button"
+            ></button>
+            <button
+              aria-label="Cerrar ventana emergente"
+              class="profile__add-button"
+              type="button"></button>
+            <!-- <div class="profile__avatar-overlay"></div> -->
+          </div>
+          </div>
+
+          <section class="cards">
+
           </div>
           <button
             aria-label="Agregar tarjeta"
@@ -165,6 +178,31 @@
           ></button>
           <img alt="" class="popup__image" src="#" />
           <p class="popup__caption"></p>
+        </div>
+      </div>
+      <div class="popup" id="edit-avatar-popup">
+        <div class="popup__content">
+          <button
+            aria-label="Cerrar ventana emergente"
+            class="popup__close"
+            type="button"
+          ></button>
+          <h3 class="popup__title">Editar avatar</h3>
+          <form class="popup__form" id="edit-avatar-form">
+            <input
+              class="popup__input popup__input_type_name"
+              name="avatar"
+              placeholder="avatar"
+              type="url"
+              required
+            />
+            <span class="popup__error popup__error_type_avatar"></span>
+            />
+
+            <button class="button popup__button" type="submit" disabled>
+              Guardar
+            </button>
+          </form>
         </div>
       </div>
     </div>

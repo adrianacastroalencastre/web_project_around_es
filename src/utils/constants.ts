@@ -12,7 +12,10 @@ export const defaultFormConfig: FormConfig = {
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_active",
-};
+}
+
+export const avatarPopupSelector ="popup-avatar";
+export const avatarFormSelector = "avatar-form";
 
 export const initialCards = [
   {
