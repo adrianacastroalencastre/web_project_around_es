@@ -27,10 +27,7 @@ const newCardButton = newCardForm.querySelector<HTMLButtonElement>(".popup__butt
 
 const inputList = Array.from(formElement.querySelectorAll<HTMLInputElement>(".popup__input"));
 const newCardInputs = Array.from(newCardForm.querySelectorAll<HTMLInputElement>(".popup__input"));
-//
-// -->const profileFormValidator = new FormValidator(defaultFormConfig, formElement);
-//const cardFormValidator = new FormValidator(defaultFormConfig, newCardForm);
-//
+
 const api = new Api({
   baseUrl: "https://around-api.es.tripleten-services.com/v1",
   headers:{ 
@@ -38,7 +35,6 @@ const api = new Api({
     "Content-Type": "application/json"
 }});
 
-////
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   descriptionSelector: ".profile__description",
@@ -119,7 +115,7 @@ function resetValidation(
  );
 
  const editAvatarPopup = new PopupWithForm(
-   "#edit-avatar-form",
+   ".profile__edit-button",
   async (inputValues: Record<string, string>) => {
    api.updateAvatar( inputValues.avatar).then((data) => {
       userInfo.setUserInfo(data);
@@ -136,7 +132,6 @@ const newCardValidator = new FormValidator(defaultFormConfig, newCardForm);
 profileFormValidator.enableValidation();
 newCardValidator.enableValidation();
 
-// inicialización: datos remotos
 async function initApp() {  
 try {
   const [userData, initialCards] = await Promise.all([
@@ -144,8 +139,8 @@ try {
     api.getInitialCards()
   ]);
   userInfo.setUserInfo({name: userData.name, about: userData.about, avatar: userData.avatar});
-  initialCards.forEach((cardData) => {
-    createCard(cardData);
+  initialCards.forEach((CardData) => {
+    createCard(CardData);
   });
 } catch (error) {
   console.error("Fallo al cargar datos iniciales:", error);
@@ -172,7 +167,7 @@ openNewCardModelButton.addEventListener("click", () => {
   newCardPopup.open();
 });
 //avatar perfil edit
-const avatarEditButton = document.querySelector<HTMLFormElement>(".profile__avatar-container")!;
+const avatarEditButton = document.querySelector<HTMLFormElement>(". avatar")!;
 avatarEditButton.addEventListener("click", () => {
   resetValidation({ } as HTMLFormElement, [], {} as HTMLButtonElement);
   editAvatarPopup.open();

@@ -1,4 +1,3 @@
-//import { UserInfo } from "./UserInfo";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,13 +34,9 @@ export class Api {
     }
     getInitialCards() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`${this.baseUrl}/cards`, {
+            return fetch(`${this.baseUrl}/cards`, {
                 headers: this.headers,
-            });
-            if (response.ok) {
-                return yield response.json();
-            }
-            throw new Error(`Error: ${response.status}`);
+            }).then(response => this.handleResponse(response));
         });
     }
     updateUserInfo(name, about) {
@@ -62,10 +57,7 @@ export class Api {
                 headers: this.headers,
                 body: JSON.stringify({ name, link })
             });
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error(`Error: ${response.status}`);
+            return yield this.handleResponse(response);
         });
     }
     deleteCard(cardId) {

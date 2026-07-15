@@ -7,9 +7,10 @@ export class PopupWithForm extends Popup {
 
   constructor(popupSelector: string, handleFormSubmit: FormSubmitHandler) {
     super(popupSelector);
+    console.log(this.popupElement);
 
     this.formElement = this.popupElement.querySelector(
-      ".popup__form"
+      ".profile__edit-button"
     ) as HTMLFormElement;
     this.inputList = Array.from(
       this.formElement.querySelectorAll(".popup__input")
@@ -29,10 +30,10 @@ export class PopupWithForm extends Popup {
 
   public setEventListeners(): void {
     super.setEventListeners();
-
     this.formElement.addEventListener("submit", (evt: SubmitEvent) => {
       evt.preventDefault();
       this.handleFormSubmit(this.getInputValues());
+      this.close();
     });
   }
 

@@ -1,6 +1,5 @@
-//import { UserInfo } from "./UserInfo";
-
 import type { AvatarFormData, CardData, UserData } from "../types/types";
+import type { Card } from "./Card";
 interface ApiOptions {
     baseUrl: string;
     headers: Record<string, string>;
@@ -19,12 +18,12 @@ export class Api {
 // Methods of API [getUserInfo, getCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
 private async handleResponse<T>(response: Response): Promise<T> {
     if (response.ok) {
-        return await response.json() as T;
+        return await response.json() as Promise <T>;
     }
     return Promise.reject(`Error: ${response.status}`);
 }
 //metodos
-async getUserInfo() {
+async getUserInfo(): Promise<UserData> {
     const response = await fetch(`${this.baseUrl}/users/me`,{
         headers: this.headers,
     });
@@ -32,15 +31,10 @@ async getUserInfo() {
 }
     
 async getInitialCards(): Promise<CardData[]> {
-    const response = await fetch(`${this.baseUrl}/cards`, {
+    return fetch(`${this.baseUrl}/cards`, {
         headers: this.headers,
-    });
-    if (response.ok) {
-        return await response.json();
-    }
-    throw new Error(`Error: ${response.status}`);
+    }).then(response => this.handleResponse<CardData[]>(response));
 }
-
 
 async updateUserInfo(name: string, about: string): Promise<UserData> {
    const response = await fetch(`${this.baseUrl}/users/me`, {
@@ -57,14 +51,10 @@ async addCard(name :string, link :string): Promise<CardData> {
         headers: this.headers,
         body: JSON.stringify({name, link})
     });
-
-    if(response.ok) {
-        return  response.json();
-    }
-    throw new Error(`Error: ${response.status}`);
+    return await this.handleResponse<CardData>(response);
 }
 
-async deleteCard(cardId :string) {
+async deleteCard(cardId :string): Promise<void> {
     const response = await fetch(`${this.baseUrl}/cards/${cardId}`, {
         method: 'DELETE',
         headers: this.headers,
@@ -72,7 +62,7 @@ async deleteCard(cardId :string) {
     return await this.handleResponse(response);
 }
 
-async likeCard(cardId :string) {
+async likeCard(cardId :string): Promise<void> {
     const response = await fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
         method: 'PUT',
         headers: this.headers,
@@ -80,7 +70,7 @@ async likeCard(cardId :string) {
     return await this.handleResponse(response);
 }
 
-async unlikeCard(cardId :string) {
+async unlikeCard(cardId :string): Promise<void> {
     const response = await fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
         method: 'DELETE',
         headers: this.headers,
