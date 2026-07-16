@@ -7,14 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { FormValidator } from "./components/FormValidator.js";
-import { Card } from "./components/Card.js";
-import { UserInfo } from "./components/UserInfo.js";
-import { PopupWithForm } from "./components/PopupWithForms.js";
-import { PopupWithImage } from "./components/PopupWithImage.js";
-import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
-import { Section } from "./components/Section.js";
 import { Api } from "./components/Api.js";
+import { Card } from "./components/Card.js";
+import { FormValidator } from "./components/FormValidator.js";
+import { Section } from "./components/Section.js";
+import { PopupWithImage } from "./components/PopupWithImage.js";
+import { PopupWithForm } from "./components/PopupWithForms.js";
+import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
+import { UserInfo } from "./components/UserInfo.js";
 import { defaultFormConfig } from "./utils/constants.js";
 // DOM Selectores
 const profileInfo = document.querySelector(".profile__info");
@@ -30,6 +30,7 @@ const saveButton = formElement.querySelector(".popup__button");
 const newCardButton = newCardForm.querySelector(".popup__button");
 const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
 const newCardInputs = Array.from(newCardForm.querySelectorAll(".popup__input"));
+//
 const api = new Api({
     baseUrl: "https://around-api.es.tripleten-services.com/v1",
     headers: {
@@ -126,7 +127,6 @@ function initApp() {
         }
     });
 }
-// Listeners de eventos
 initApp();
 imagePopup.setEventListeners();
 editPopup.setEventListeners();

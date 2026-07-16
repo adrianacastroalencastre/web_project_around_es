@@ -34,9 +34,13 @@ export class Api {
     }
     getInitialCards() {
         return __awaiter(this, void 0, void 0, function* () {
-            return fetch(`${this.baseUrl}/cards`, {
+            const response = yield fetch(`${this.baseUrl}/cards`, {
                 headers: this.headers,
-            }).then(response => this.handleResponse(response));
+            });
+            if (response.ok) {
+                return yield response.json();
+            }
+            throw new Error(`Error: ${response.status}`);
         });
     }
     updateUserInfo(name, about) {
