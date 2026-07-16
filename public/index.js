@@ -160,4 +160,10 @@ newCardInputs.forEach((input) => {
         checkInputValidity(newCardForm, input);
         toggleButtonState(newCardInputs, newCardButton);
     });
+    //
+    const popupEditProfile = new PopupWithForm("#edit-popup", (inputValues) => {
+        api.updateUserInfo(inputValues.name, inputValues.description)
+            .then((data) => {
+        });
+    });
 });

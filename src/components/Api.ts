@@ -31,9 +31,13 @@ async getUserInfo(): Promise<UserData> {
 }
     
 async getInitialCards(): Promise<CardData[]> {
-    return fetch(`${this.baseUrl}/cards`, {
+    const response = await fetch(`${this.baseUrl}/cards`, {
         headers: this.headers,
-    }).then(response => this.handleResponse<CardData[]>(response));
+    });
+    if (!response.ok) {
+    return await response.json() //this.handleResponse<CardData[]>(response);
+}
+    throw new Error(`Error: ${response.status}`);
 }
 
 async updateUserInfo(name: string, about: string): Promise<UserData> {

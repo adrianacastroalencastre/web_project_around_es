@@ -2,7 +2,6 @@ import { Popup } from "./Popup.js";
 export class PopupWithForm extends Popup {
     constructor(popupSelector, handleFormSubmit) {
         super(popupSelector);
-        console.log(this.popupElement);
         this.formElement = this.popupElement.querySelector(".profile__edit-button");
         this.inputList = Array.from(this.formElement.querySelectorAll(".popup__input"));
         this.handleFormSubmit = handleFormSubmit;
@@ -25,5 +24,13 @@ export class PopupWithForm extends Popup {
     close() {
         super.close();
         this.formElement.reset();
+    }
+    renderisLoading(isLoading) {
+        if (isLoading) {
+            this.formElement.querySelector(".popup__button").textContent = "Guardando...";
+        }
+        else {
+            this.formElement.querySelector(".popup__button").textContent = "Guardar";
+        }
     }
 }

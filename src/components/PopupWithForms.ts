@@ -7,8 +7,6 @@ export class PopupWithForm extends Popup {
 
   constructor(popupSelector: string, handleFormSubmit: FormSubmitHandler) {
     super(popupSelector);
-    console.log(this.popupElement);
-
     this.formElement = this.popupElement.querySelector(
       ".profile__edit-button"
     ) as HTMLFormElement;
@@ -41,4 +39,13 @@ export class PopupWithForm extends Popup {
     super.close();
     this.formElement.reset();
   }
+
+  renderisLoading(isLoading: boolean){
+    if (isLoading) {
+      this.formElement.querySelector(".popup__button")!.textContent = "Guardando...";
+    } else {
+      this.formElement.querySelector(".popup__button")!.textContent = "Guardar";
+    }
+  }
+  
 }
