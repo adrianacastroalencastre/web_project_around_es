@@ -34,8 +34,8 @@ async getInitialCards(): Promise<CardData[]> {
     const response = await fetch(`${this.baseUrl}/cards`, {
         headers: this.headers,
     });
-    if (!response.ok) {
-    return await response.json() //this.handleResponse<CardData[]>(response);
+    if (response.ok) {
+    return await response.json(); 
 }
     throw new Error(`Error: ${response.status}`);
 }

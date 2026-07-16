@@ -1,13 +1,12 @@
-import { FormValidator } from "./components/FormValidator.js";
-import { Card } from "./components/Card.js";
-import { UserInfo } from "./components/UserInfo.js";
-import type { UserData } from "./types/types.js";
-import { PopupWithForm } from "./components/PopupWithForms.js";
-import { PopupWithImage } from "./components/PopupWithImage.js";
-import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
-import { Section } from "./components/Section.js";
 import { Api } from "./components/Api.js";
-import type { CardData } from "./types/types.js";
+import { Card } from "./components/Card.js";
+import { FormValidator } from "./components/FormValidator.js";
+import { Section } from "./components/Section.js";
+import { PopupWithImage } from "./components/PopupWithImage.js";
+import { PopupWithForm } from "./components/PopupWithForms.js";
+import { PopupWithConfirmation } from "./components/PopupWithConfirmation.js";
+import { UserInfo } from "./components/UserInfo.js";
+import type { CardData, UserData } from "./types/types.js";
 import { defaultFormConfig } from "./utils/constants.js";
 
 // DOM Selectores
@@ -18,16 +17,13 @@ const openModal = profileInfo.querySelector<HTMLButtonElement>(".profile__edit-b
 const openNewCardModelButton = document.querySelector<HTMLButtonElement>(".profile__add-button")!;
 const formElement = editModal.querySelector<HTMLFormElement>("#edit-profile-form")!;
 const newCardForm = document.querySelector<HTMLFormElement>("#new-card-form")!;
-
 const inputName = document.querySelector<HTMLInputElement>(".popup__input_type_name")!;
 const inputDescription = document.querySelector<HTMLInputElement>(".popup__input_type_description")!;
-
 const saveButton = formElement.querySelector<HTMLButtonElement>(".popup__button")!;
 const newCardButton = newCardForm.querySelector<HTMLButtonElement>(".popup__button")!;
-
 const inputList = Array.from(formElement.querySelectorAll<HTMLInputElement>(".popup__input"));
 const newCardInputs = Array.from(newCardForm.querySelectorAll<HTMLInputElement>(".popup__input"));
-
+//
 const api = new Api({
   baseUrl: "https://around-api.es.tripleten-services.com/v1",
   headers:{ 
@@ -146,7 +142,6 @@ try {
   console.error("Fallo al cargar datos iniciales:", error);
 }
 }
-// Listeners de eventos
 initApp();
 
 imagePopup.setEventListeners();
