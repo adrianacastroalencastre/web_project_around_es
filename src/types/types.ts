@@ -23,3 +23,8 @@ export interface CardData {
 export interface AvatarFormData {
     avatar: string;
 }
+
+export interface CardFormData {
+    "place-name": string;
+    link: string;
+}   

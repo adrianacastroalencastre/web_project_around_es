@@ -1,3 +1,5 @@
+import type { CardData } from "../types/types";
+
 interface SectionConfig <T> { 
     items: T [];
     renderer: (item: T) => void;
@@ -16,14 +18,15 @@ export class Section<T> {
     this.container = document.querySelector(containerSelector) as HTMLElement;
   }
 
-  public renderItems(): void {
+  public renderItems(initialCards: CardData[]): void {
     this.items.forEach((item) => {
       this.renderer(item);
     });
   } 
   
-  public addItem(element: HTMLElement): void {
+  public addItem(element: HTMLElement): HTMLElement {
     this.container.prepend(element);
+    return element;
   }
 }
 

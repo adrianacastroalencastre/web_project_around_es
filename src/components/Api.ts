@@ -1,5 +1,6 @@
 import type { AvatarFormData, CardData, UserData } from "../types/types";
 import type { Card } from "./Card";
+//import type { } from "";
 interface ApiOptions {
     baseUrl: string;
     headers: Record<string, string>;
@@ -74,7 +75,7 @@ async likeCard(cardId :string): Promise<void> {
     return await this.handleResponse(response);
 }
 
-async unlikeCard(cardId :string): Promise<void> {
+async dislikeCard(cardId :string): Promise<void> {
     const response = await fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
         method: 'DELETE',
         headers: this.headers,

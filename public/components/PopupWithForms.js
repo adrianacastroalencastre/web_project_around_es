@@ -2,7 +2,7 @@ import { Popup } from "./Popup.js";
 export class PopupWithForm extends Popup {
     constructor(popupSelector, handleFormSubmit) {
         super(popupSelector);
-        this.formElement = this.popupElement.querySelector(".profile__edit-button");
+        this.formElement = this.popupElement.querySelector(".popup__form");
         this.inputList = Array.from(this.formElement.querySelectorAll(".popup__input"));
         this.handleFormSubmit = handleFormSubmit;
     }

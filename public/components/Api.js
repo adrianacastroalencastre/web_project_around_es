@@ -82,7 +82,7 @@ export class Api {
             return yield this.handleResponse(response);
         });
     }
-    unlikeCard(cardId) {
+    dislikeCard(cardId) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
                 method: 'DELETE',

@@ -1,4 +1,4 @@
-import type { CardData, ValidationConfig } from "../types/types";
+import type { CardData, ValidationConfig } from "../types/types.js";
 export interface FormConfig {
   inputSelector: string;
   submitButtonSelector: string;
@@ -64,7 +64,6 @@ export const defaultFormConfig: ValidationConfig = {
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
-}
-
+};
 
 

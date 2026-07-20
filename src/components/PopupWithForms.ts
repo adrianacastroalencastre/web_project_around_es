@@ -8,7 +8,7 @@ export class PopupWithForm extends Popup {
   constructor(popupSelector: string, handleFormSubmit: FormSubmitHandler) {
     super(popupSelector);
     this.formElement = this.popupElement.querySelector(
-      ".profile__edit-button"
+      ".popup__form"
     ) as HTMLFormElement;
     this.inputList = Array.from(
       this.formElement.querySelectorAll(".popup__input")
