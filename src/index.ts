@@ -7,7 +7,14 @@ import { PopupWithForm } from "./components/PopupWithForms.js";
 import { UserInfo } from "./components/UserInfo.js";
 import type { CardData } from "./types/types.js";
 import { defaultFormConfig, initialCards } from "./utils/constants.js";
-// DOM Selectores
+
+const api = new Api({
+  baseUrl: "https://around-api.es.tripleten-services.com/v1",
+  headers: {
+    authorization: "ac46fbd6-44c2-43cd-96de-34088853b47e",
+    "Content-Type": "application/json",
+  },
+});
 const profileInfo = document.querySelector<HTMLElement>(".profile__info")!;
 const editModal = document.querySelector<HTMLElement>("#edit-popup")!;
 const openModal = profileInfo.querySelector<HTMLButtonElement>(".profile__edit-button")!; 
@@ -16,18 +23,53 @@ const formElement = editModal.querySelector<HTMLFormElement>("#edit-profile-form
 const newCardForm = document.querySelector<HTMLFormElement>("#new-card-form")!;
 const inputName = editModal.querySelector<HTMLInputElement>(".popup__input_type_name")!;
 const inputDescription = editModal.querySelector<HTMLInputElement>(".popup__input_type_description")!;
-const api = new Api({
-  baseUrl: "https://around-api.es.tripleten-services.com/v1",
-  headers: {
-    authorization: "ac46fbd6-44c2-43cd-96de-34088853b47e",
-    "Content-Type": "application/json",
-  },
-});
+
+const cardSection = new Section<CardData>(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card (item, "#card-template", handleCardClick);
+      const cardElement = card.generateCard();
+      cardSection.addItem(cardElement);
+},
+},
+".cards__list"
+);
+
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   descriptionSelector: ".profile__description",
   avatarSelector: ".profile__image",
 });
+
+const editProfilePopup = new PopupWithForm("#edit-popup", (inputValues) => {
+  //Actualizar la información en la api
+  userInfo.setUserInfo({
+    name: inputValues["profile-name"],
+    about: inputValues ["profile-description"],
+    avatar: inputValues[""]
+  });
+  editProfilePopup.close();
+});
+editProfilePopup.setEventListeners();
+
+const addCardPopup = new PopupWithForm(
+  "#new-card-popup",
+  (inputValues: Record<string, string>) => {
+    // crear el post en la api y luego agregarlo a la sección
+    const newCardElement = createCard({
+      name: inputValues["card__title"],
+      link: inputValues["card-body"],
+      _id: "",
+      owner: "",
+      createdAt: "",
+      isLiked: false
+    });
+    cardList.addItem(newCardElement);
+    addCardPopup.close();
+  });
+  addCardPopup.setEventListeners();
+
 
 const imagePopup = new PopupWithImage("#image-popup");
 
@@ -46,49 +88,23 @@ const cardList = new Section<CardData>(
       cardList.addItem(card);
     }
     },
-  ".cards__list", //relación con el contenedor del DOM
+  ".cards__list", 
 );
-
-const editProfilePopup = new PopupWithForm("#edit-popup", (inputValues) => {
-  userInfo.setUserInfo({
-    name: inputValues["profile-name"],
-    about: inputValues ["profile-description"],
-    avatar: inputValues[""]
-  });
-  editProfilePopup.close();
-});
-editProfilePopup.setEventListeners();
-
-const newCardPopup = new PopupWithForm(
-  "#new-card-popup",
-  (inputValues: Record<string, string>) => {
-    const newCardElement = createCard({
-      name: inputValues["card__title"],
-      link: inputValues["card-body"],
-      _id: "",
-      owner: "",
-      createdAt: "",
-      isLiked: false
-    });
-    cardList.addItem(newCardElement);
-    newCardPopup.close();
-  });
-  newCardPopup.setEventListeners();
 
   openModal.addEventListener("click", () => {
     const userData = userInfo.getUserInfo();
+    // Editado hoy domingo
     // llenar el form con datos actuales
     inputName.value = userData.name;
     inputDescription.value = userData.about;
-    // avatarInput is not declared in this file; keep current avatar in the form if needed
-
+    
     profileFormValidator.resetValidation();
     editProfilePopup.open();
     });
 
     openNewCardModelButton.addEventListener("click", ()=> {
       postValidator.resetValidation();
-      newCardPopup.open();
+      addCardPopup.open();
     });
 
     const profileValidator = new FormValidator(defaultFormConfig, formElement);
@@ -96,7 +112,7 @@ const newCardPopup = new PopupWithForm(
 
     profileValidator.enableValidation();
     postValidator.enableValidation();
-
+    // editado hoy domingo
     //Inicialización cuando se carga la pagina
     document.addEventListener("DOMContentLoaded", () =>{
       cardList.renderItems(initialCards);
@@ -115,7 +131,16 @@ const editPopup = new PopupWithForm(
   });
   editPopup.setEventListeners();
 
-  /* 
+const popupWithImage = new PopupWithImage("#image-popup");
+popupWithImage.setEventListeners();
+
+const handleCardClick = (name: string, link: string): void => {
+  popupWithImage.open(name, link);
+};
+
+  /*
+  const card = new Card(cardData, "#card-template", handleCardClick)
+
   const updateUser = await api.updateUserInfo({name, about});
   userInfo.setUserInfo(updatedUser); // updatesUser ya tiene avatar
 
@@ -147,6 +172,23 @@ const profileFormValidator = new FormValidator(defaultFormConfig, formElement);
 const newCardValidator = new FormValidator(defaultFormConfig, newCardForm);
 profileFormValidator.enableValidation();
 newCardValidator.enableValidation();
+// editado hoy domingo 
+//INICIALIZACIÓN CUANDO SE CARGA LA PAGINA
+  // ONTENER LOS CARDS DESDE UNA API
+async function initApi() {
+  try {
+    const [userData, initialCards] = await Promise.all([
+      api.getUserInfo(),
+      api.getInitialCards(),
+    ]);
+    userInfo.setUserInfo(userData);
+    cardSection.renderItems(initialCards);
+  } catch (error) {
+  // Si hay un error, podemos cargar los posts iniciales como fallback
+    console.error("Error fetching cards:", error)
+  }
+}  
+initApi();
 
 /*
 function createCard(item: CardData): void {
@@ -177,7 +219,7 @@ async function initApp() {
 initApp();
 imagePopup.setEventListeners();
 editPopup.setEventListeners();
-newCardPopup.setEventListeners();
+addCardPopup.setEventListeners();
 openModal.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
   inputName.value = userData.name;
@@ -191,5 +233,5 @@ openNewCardModelButton.addEventListener("click", () => {
   inputName.value = userData.name;
   inputDescription.value = userData.about
   newCardValidator.resetValidation();
-  newCardPopup.open();
+  addCardPopup.open();
 });

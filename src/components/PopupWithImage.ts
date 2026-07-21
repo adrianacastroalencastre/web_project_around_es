@@ -18,7 +18,6 @@ export class PopupWithImage extends Popup {
     if (!name || !link) {
       return;
     }
-
     this.imageElement.src = link;
     this.imageElement.alt = name;
     this.captionElement.textContent = name;

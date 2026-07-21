@@ -1,6 +1,8 @@
-import type { AvatarFormData, CardData, UserData } from "../types/types";
+import type { AvatarFormData, CardData, UserData, CardFormData } from "../types/types";
 import type { Card } from "./Card";
-//import type { } from "";
+import type { FormValidator } from "./FormValidator";
+import type { PopupWithConfirmation } from "./PopupWithConfirmation";
+
 interface ApiOptions {
     baseUrl: string;
     headers: Record<string, string>;
@@ -11,17 +13,17 @@ export class Api {
     private headers: Record<string, string>;
 
     constructor(options: ApiOptions) {
-        console.log( `API initialized with baseUrl: ${options.baseUrl}`);
+        //console.log( `API initialized with baseUrl: ${options.baseUrl}`);
         this.baseUrl = options.baseUrl; 
         this.headers = options.headers;
     }
 
 // Methods of API [getUserInfo, getCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
 private async handleResponse<T>(response: Response): Promise<T> {
-    if (response.ok) {
-        return await response.json() as Promise <T>;
+    if (!response.ok) {
+        throw new Error(`API error: ${response.statusText}`);
     }
-    return Promise.reject(`Error: ${response.status}`);
+    return await response.json();
 }
 //metodos
 async getUserInfo(): Promise<UserData> {
@@ -32,23 +34,20 @@ async getUserInfo(): Promise<UserData> {
 }
     
 async getInitialCards(): Promise<CardData[]> {
-    const response = await fetch(`${this.baseUrl}/cards`, {
-        headers: this.headers,
-    });
-    if (response.ok) {
-    return await response.json(); 
-}
-    throw new Error(`Error: ${response.status}`);
+    const response = await fetch(`${this.baseUrl}/cards/1`);
+    return await this.handleResponse<CardData[]>(response);
 }
 
-async updateUserInfo(name: string, about: string): Promise<UserData> {
+async updateUserInfo(userData: UserData): Promise<UserData> {
    const response = await fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
-      body: JSON.stringify({name: name, about: about}),
+      body: JSON.stringify(userData),
     });
     return await this.handleResponse<UserData>(response);
   }
+// hasta aqui avance lunes
+
 //addCard 
 async addCard(name :string, link :string): Promise<CardData> {
     const response = await fetch(`${this.baseUrl}/cards`,{
@@ -58,6 +57,7 @@ async addCard(name :string, link :string): Promise<CardData> {
     });
     return await this.handleResponse<CardData>(response);
 }
+
 
 async deleteCard(cardId :string): Promise<void> {
     const response = await fetch(`${this.baseUrl}/cards/${cardId}`, {

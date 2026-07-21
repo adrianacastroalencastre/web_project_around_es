@@ -10,17 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 //
 export class Api {
     constructor(options) {
-        console.log(`API initialized with baseUrl: ${options.baseUrl}`);
+        //console.log( `API initialized with baseUrl: ${options.baseUrl}`);
         this.baseUrl = options.baseUrl;
         this.headers = options.headers;
     }
     // Methods of API [getUserInfo, getCards, addCard, deleteCard, updateUserInfo, updateAvatar, likeCard, dislikeCard]
     handleResponse(response) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (response.ok) {
-                return yield response.json();
+            if (!response.ok) {
+                throw new Error(`API error: ${response.statusText}`);
             }
-            return Promise.reject(`Error: ${response.status}`);
+            return yield response.json();
         });
     }
     //metodos
@@ -34,21 +34,16 @@ export class Api {
     }
     getInitialCards() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`${this.baseUrl}/cards`, {
-                headers: this.headers,
-            });
-            if (response.ok) {
-                return yield response.json();
-            }
-            throw new Error(`Error: ${response.status}`);
+            const response = yield fetch(`${this.baseUrl}/cards/1`);
+            return yield this.handleResponse(response);
         });
     }
-    updateUserInfo(name, about) {
+    updateUserInfo(userData) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield fetch(`${this.baseUrl}/users/me`, {
                 method: 'PATCH',
                 headers: this.headers,
-                body: JSON.stringify({ name: name, about: about }),
+                body: JSON.stringify(userData),
             });
             return yield this.handleResponse(response);
         });

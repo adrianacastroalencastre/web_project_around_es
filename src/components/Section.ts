@@ -1,8 +1,9 @@
 import type { CardData } from "../types/types";
 
 interface SectionConfig <T> { 
-    items: T [];
-    renderer: (item: T) => void;
+  //data: T[];
+  items: T [];
+  renderer: (item: T) => void;
 }
 export class Section<T> {
   private items: T[];
