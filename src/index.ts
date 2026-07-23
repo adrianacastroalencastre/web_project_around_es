@@ -42,13 +42,14 @@ const userInfo = new UserInfo({
   avatarSelector: ".profile__image",
 });
 
-const editProfilePopup = new PopupWithForm("#edit-popup", (inputValues) => {
+const editProfilePopup = new PopupWithForm("#edit-popup", async (inputValues) => {
+  const data = {
   //Actualizar la información en la api
-  userInfo.setUserInfo({
+  //userInfo.setUserInfo({
     name: inputValues["profile-name"],
     about: inputValues ["profile-description"],
-    avatar: inputValues[""]
-  });
+    avatar: inputValues["profile-avatar"]
+  };// avance lune 1.19 horas del video
   editProfilePopup.close();
 });
 editProfilePopup.setEventListeners();
@@ -174,7 +175,7 @@ profileFormValidator.enableValidation();
 newCardValidator.enableValidation();
 // editado hoy domingo 
 //INICIALIZACIÓN CUANDO SE CARGA LA PAGINA
-  // ONTENER LOS CARDS DESDE UNA API
+  // OBTENER LOS CARDS DESDE UNA API
 async function initApi() {
   try {
     const [userData, initialCards] = await Promise.all([

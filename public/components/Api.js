@@ -48,6 +48,7 @@ export class Api {
             return yield this.handleResponse(response);
         });
     }
+    // hasta aqui avance lunes
     //addCard 
     addCard(name, link) {
         return __awaiter(this, void 0, void 0, function* () {

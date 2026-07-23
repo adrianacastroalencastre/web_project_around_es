@@ -43,15 +43,16 @@ const userInfo = new UserInfo({
     descriptionSelector: ".profile__description",
     avatarSelector: ".profile__image",
 });
-const editProfilePopup = new PopupWithForm("#edit-popup", (inputValues) => {
-    //Actualizar la información en la api
-    userInfo.setUserInfo({
+const editProfilePopup = new PopupWithForm("#edit-popup", (inputValues) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = {
+        //Actualizar la información en la api
+        //userInfo.setUserInfo({
         name: inputValues["profile-name"],
         about: inputValues["profile-description"],
-        avatar: inputValues[""]
-    });
+        avatar: inputValues["profile-avatar"]
+    }; // avance lune 1.19 horas del video
     editProfilePopup.close();
-});
+}));
 editProfilePopup.setEventListeners();
 const addCardPopup = new PopupWithForm("#new-card-popup", (inputValues) => {
     // crear el post en la api y luego agregarlo a la sección
@@ -153,7 +154,7 @@ profileFormValidator.enableValidation();
 newCardValidator.enableValidation();
 // editado hoy domingo 
 //INICIALIZACIÓN CUANDO SE CARGA LA PAGINA
-// ONTENER LOS CARDS DESDE UNA API
+// OBTENER LOS CARDS DESDE UNA API
 function initApi() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
